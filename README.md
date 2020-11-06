@@ -10,7 +10,7 @@
 [![Committed Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fcommitted.software%2Fbadge)](https://committed.io)
 [![Build Status](https://drone.committed.software/api/badges/commitd/hooks/status.svg)](https://drone.committed.software/commitd/hooks)
 ![GitHub repo size](https://img.shields.io/github/repo-size/commitd/hooks)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.committed.hooks%3Ahooks&metric=alert_status&token=0940622ec61c644fe85982cffa3d902a6b110d20)](https://sonarcloud.io/dashboard?id=io.committed.template-ts-lib%3Ahooks)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.committed.hooks%3Ahooks&metric=alert_status&token=0940622ec61c644fe85982cffa3d902a6b110d20)](https://sonarcloud.io/dashboard?id=io.committed.hooks%3Ahooks)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=io.committed.hooks%3Ahooks&metric=coverage&token=0940622ec61c644fe85982cffa3d902a6b110d20)](https://sonarcloud.io/dashboard?id=io.committed.hooks%3Ahooks)
 
 For documentation see <https://committed.software/hooks>
@@ -28,7 +28,7 @@ import * as React from 'react'
 import { useHook } from '@committed/hooks'
 
 const Example = (props) => {
-  const {hook} = useHook()
+  const { hook } = useHook()
   // ...
   return <Component />
 }
@@ -47,6 +47,7 @@ We use storybook to develop and document the components, this is run in developm
 ```bash
 yarn storybook
 ```
+
 There is also an example folder that can be used to test the library in it's built form. The recommended workflow is to run two terminals, in the first run
 
 ```bash
@@ -92,7 +93,6 @@ Calculates the real cost of your library using [size-limit](https://github.com/a
 #### React Testing Library
 
 Import `setupTests.tsx` in your test files to use `react-testing-library`.
-
 
 ## Continuous Integration
 
