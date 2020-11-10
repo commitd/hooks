@@ -56,6 +56,17 @@
       "limit": "10 KB"
     }
   ],
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "testResultsProcessor": "jest-sonar-reporter",
+    "coveragePathIgnorePatterns": [
+      "setupTests.tsx",
+      ".*/index.ts",
+      ".*.test.ts",
+      ".*.stories.tsx"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@committed/components": "^4.0.0",
@@ -80,6 +91,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-security": "^1.4.0",
     "husky": "^4.3.0",
+    "jest-sonar-reporter": "^2.0.0",
     "plop": "^2.7.4",
     "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0",
