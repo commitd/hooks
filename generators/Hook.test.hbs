@@ -1,0 +1,18 @@
+import { renderHook, act } from '@testing-library/react-hooks'
+import { {{ name }} } from '.'
+
+test('Should provide initial output', () => {
+  const { result: first } = renderHook(() => {{ name }}())
+  expect(first.current).toBeFalsy()
+})
+
+test('Should have behaviour ...', () => {
+  const { result } = renderHook(() => {{ name }}())
+
+  act(() => {
+    // do something with `result.current`
+  })
+
+  expect(result.current).toBeFalsy()
+
+})
