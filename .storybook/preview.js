@@ -5,6 +5,11 @@ export const decorators = [withTheme]
 
 export const parameters = {
   actions: { argTypesRegex: '^on.*' },
+  options: {
+    storySort: {
+      order: ['Introduction', 'Hooks'],
+    },
+  },
   docs: {
     theme: committedLight,
     source: { type: 'code' },
