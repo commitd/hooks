@@ -5,7 +5,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['setupTests.tsx','*.test.ts*', '*.stories.tsx'],
+  ignorePatterns: ['setupTests.tsx', '*.test.ts*', '*.stories.tsx'],
   extends: [
     // non-ts recommended rules
     'eslint:recommended',

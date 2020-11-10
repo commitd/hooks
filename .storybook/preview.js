@@ -1,5 +1,12 @@
-// https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+import { withTheme } from './committed/withTheme'
+import { committedLight } from './committed/theme'
+
+export const decorators = [withTheme]
+
 export const parameters = {
-  // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
   actions: { argTypesRegex: '^on.*' },
-};
+  docs: {
+    theme: committedLight,
+    source: { type: 'code' },
+  },
+}
