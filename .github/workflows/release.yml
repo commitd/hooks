@@ -5,7 +5,7 @@ on:
     types: [created]
 
 jobs:
-  build:
+  release:
     name: Build and publish
     runs-on: ubuntu-latest
 
@@ -26,9 +26,9 @@ jobs:
         run: yarn build
 
       - name: Publish Package
-      - run: npm publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish Docs
-      - run: yarn deploy-storybook --ci
+        run: yarn deploy-storybook --ci
