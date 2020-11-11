@@ -29,3 +29,5 @@ jobs:
 
       - name: Publish Docs
         run: yarn deploy-storybook --ci
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
