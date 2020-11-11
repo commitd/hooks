@@ -28,3 +28,7 @@ yarn-error.log*
 
 .docz
 .vscode
+
+# test artifacts
+coverage
+test-report.xml
