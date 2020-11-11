@@ -8,8 +8,7 @@
 </p>
 
 [![Committed Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fcommitted.software%2Fbadge)](https://committed.io)
-[![Build Status](https://drone.committed.software/api/badges/commitd/hooks/status.svg)](https://drone.committed.software/commitd/hooks)
-![Build Status](https://github.com/commitd/hooks/workflows/main/badge.svg?branch=main)
+![Build Status](https://github.com/commitd/hooks/workflows/build/badge.svg?branch=main)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=commitd_hooks&metric=alert_status)](https://sonarcloud.io/dashboard?id=commitd_hooks)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=commitd_hooks&metric=coverage)](https://sonarcloud.io/dashboard?id=commitd_hooks)
 ![GitHub repo size](https://img.shields.io/github/repo-size/commitd/hooks)
