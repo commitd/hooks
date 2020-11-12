@@ -100,18 +100,9 @@ Import `setupTests.tsx` in your test files to use `react-testing-library`.
 
 Two actions are added by default:
 
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
+- `build` which installs deps w/ cache, lints, tests, and builds.
+- `release` triggered on release with (commented) options to publish and deploy storybook
 - `size` which comments cost comparison of your library on every pull request using [size-limit](https://github.com/ai/size-limit)
-
-### Drone
-
-Example drone configuration with steps for
-
-- **npm authentication** for later publication with npm
-- **build** the main library
-- **publish** to npm
-- **code-analysis** with sonar
-- **announce** with slack
 
 ## License
 
