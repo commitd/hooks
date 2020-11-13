@@ -22,9 +22,6 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
-      - name: Build
-        run: yarn build
-
       - name: Publish Package
         run: npm publish --access=public
         env:
@@ -32,3 +29,5 @@ jobs:
 
       - name: Publish Docs
         run: yarn deploy-storybook --ci
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}

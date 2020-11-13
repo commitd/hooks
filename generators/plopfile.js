@@ -30,7 +30,7 @@ module.exports = (plop) => {
         template: "export * from './{{name}}'\n",
       },
       {
-        type: 'append',
+        type: 'modify',
         path: '../src/components/index.ts',
         pattern: /\n*$/,
         template: `\nexport * from './{{name}}'\n`,

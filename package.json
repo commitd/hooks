@@ -27,7 +27,7 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook --no-dll",
     "format": "prettier --write '**/{src,test,stories}/**/{*.js,*.ts,*.tsx,*.json,*.md,*.mdx}' example/index.tsx",
     "deploy-storybook": "storybook-to-ghpages",
     "generate": "plop --plopfile ./generators/plopfile.js"
@@ -57,7 +57,7 @@
     }
   ],
   "jest": {
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "collectCoverage": true,
     "testResultsProcessor": "jest-sonar-reporter",
     "coveragePathIgnorePatterns": [
@@ -74,8 +74,8 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@size-limit/preset-small-lib": "^4.6.2",
-    "@storybook/addon-essentials": "^6.0.27",
-    "@storybook/react": "^6.0.27",
+    "@storybook/addon-essentials": "^6.0.28",
+    "@storybook/react": "^6.0.28",
     "@storybook/storybook-deployer": "^2.8.7",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
