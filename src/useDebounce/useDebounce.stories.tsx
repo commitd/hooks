@@ -13,10 +13,10 @@ import React from 'react'
 import useSwr from 'swr'
 import { useDebounce } from '.'
 
-export interface UseDebounceDocsProps {
-  /** The callback to be called */
-  callback: (() => void) | null
-  /** The time between calls (ms) */
+export interface UseDebounceDocsProps<T> {
+  /** The value to debounce updates for */
+  value: T
+  /** The time to delay updates by (ms) */
   delay: number | null
 }
 
@@ -30,7 +30,7 @@ export interface UseDebounceDocsProps {
  * Adapted from <https://usehooks.com/>, if more functionality or control is required use [use-debounce](https://github.com/xnimorz/use-debounce).
  *
  */
-export const UseDebounceDocs: React.FC<UseDebounceDocsProps> = () => null
+export const UseDebounceDocs: React.FC<UseDebounceDocsProps<any>> = () => null
 
 export default {
   title: 'Hooks/useDebounce',
@@ -40,10 +40,13 @@ export default {
     delay: {
       control: { type: 'range', min: 0, max: 1000, step: 100 },
     },
+    value: {
+      control: null,
+    },
   },
 } as Meta
 
-const Template: Story<Omit<UseDebounceDocsProps, 'callback'>> = ({ delay }) => {
+const Template: Story<UseDebounceDocsProps<string>> = ({ delay }) => {
   const [text, setText] = React.useState('Change me!')
   const [debounced] = useDebounce(text, delay)
   return (

@@ -8,6 +8,9 @@ import { useEffect, useState } from 'react'
  * A set function is also returned so the value can be forced or flushed, say on dismount.
  *
  * Adapted from <https://usehooks.com/>.
+ *
+ * @param value The value to debounce updates for
+ * @param delay The time to delay updates by (ms)
  */
 export function useDebounce<T>(
   value: T,

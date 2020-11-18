@@ -23,13 +23,14 @@ export default {
   component: UseTimeoutDocs,
   excludeStories: ['UseTimeoutDocs'],
   argTypes: {
+    callback: {},
     delay: {
       control: { type: 'range', min: 0, max: 1000, step: 100 },
     },
   },
 } as Meta
 
-const Template: Story<Omit<UseTimeoutDocsProps, 'callback'>> = ({ delay }) => {
+const Template: Story<UseTimeoutDocsProps> = ({ delay }) => {
   const [message, setMessage] = React.useState('Computing...')
   useTimeout(() => setMessage('Done!'), delay)
   return <Typography>{message}</Typography>
