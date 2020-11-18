@@ -29,6 +29,7 @@ export default {
   component: UsePollDocs,
   excludeStories: ['UsePollDocs'],
   argTypes: {
+    callback: {},
     delay: {
       control: { type: 'range', min: 0, max: 1000, step: 100 },
     },

@@ -44,6 +44,7 @@ export default {
         options: ['click', 'dblclick', 'auxclick', 'mouseenter', 'mouseout'],
       },
     },
+    handler: {},
     element: { control: { type: 'none' } },
   },
 } as Meta

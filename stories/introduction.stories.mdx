@@ -24,6 +24,22 @@ They will be updated as we continue to improve and evolve our use of react.
 yarn add @committed/hooks
 ```
 
+Each hook can be imported from the package directly or the matching names folder e.g..
+
+```typescript
+import { useEventListener } form '@committed/hooks'
+```
+
+or
+
+```typescript
+import { useEventListener } form '@committed/hooks/useEventListener'
+```
+
+The later may help with tree-shaking depending on your setup.
+
+## Links
+
 Here are a few helpful links for getting started with hooks:
 
 - [Tutorial](https://reactjs.org/docs/hooks-overview.html) Learn about react hooks.

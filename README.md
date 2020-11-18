@@ -26,6 +26,8 @@ yarn add @committed/hooks
 ```tsx
 import * as React from 'react'
 import { useHook } from '@committed/hooks'
+// Or
+// import { useHook } from '@committed/hooks/useHook'
 
 const Example = (props) => {
   const { hook } = useHook()

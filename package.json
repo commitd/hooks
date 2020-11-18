@@ -28,7 +28,7 @@
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook --no-dll",
-    "format": "prettier --write '**/{src,test,stories}/**/{*.js,*.ts,*.tsx,*.json,*.md,*.mdx}' example/index.tsx",
+    "format": "prettier --write '**/{src,test,stories}/**/{*.js,*.ts,*.tsx,*.json,*.md,*.mdx}'",
     "deploy-storybook": "storybook-to-ghpages",
     "generate": "plop --plopfile ./generators/plopfile.js"
   },

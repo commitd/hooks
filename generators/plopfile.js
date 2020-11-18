@@ -49,27 +49,27 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: '../src/hooks/{{name}}/{{name}}.ts',
+        path: '../src/{{name}}/{{name}}.ts',
         templateFile: 'Hook.hbs',
       },
       {
         type: 'add',
-        path: '../src/hooks/{{name}}/{{name}}.stories.tsx',
+        path: '../src/{{name}}/{{name}}.stories.tsx',
         templateFile: 'Hook.stories.hbs',
       },
       {
         type: 'add',
-        path: '../src/hooks/{{name}}/{{name}}.test.ts',
+        path: '../src/{{name}}/{{name}}.test.ts',
         templateFile: 'Hook.test.hbs',
       },
       {
         type: 'add',
-        path: '../src/hooks/{{name}}/index.ts',
+        path: '../src/{{name}}/index.ts',
         template: "export * from './{{name}}'\n",
       },
       {
         type: 'modify',
-        path: '../src/hooks/index.ts',
+        path: '../src/index.ts',
         pattern: /\n*$/,
         template: `\nexport * from './{{name}}'\n`,
       },
