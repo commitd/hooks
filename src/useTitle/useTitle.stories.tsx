@@ -2,7 +2,7 @@ import React from 'react'
 import { Story, Meta } from '@storybook/react'
 import { FormControlLabel, Checkbox, Typography } from '@committed/components'
 import { useTitle } from '.'
-import { useToggle } from '../useToggle'
+import { useBoolean } from '../useBoolean'
 
 export interface UseTitleDocsProps {
   /** The string to set the title to or to be appended. */
@@ -42,7 +42,7 @@ const Template: Story<UseTitleDocsProps> = ({ title, options }) => {
     )
   }
 
-  const [show, toggle] = useToggle(false)
+  const [show, { toggle }] = useBoolean(false)
   return (
     <>
       <FormControlLabel
@@ -105,9 +105,9 @@ const Breadcrumb: React.FC<{ title: string }> = ({ title, children }) => {
 
 export const Breadcrumbs: Story = () => {
   useTitle('useTitle')
-  const [showOne, toggleOne] = useToggle(false)
-  const [showTwo, toggleTwo] = useToggle(false)
-  const [showThree, toggleThree] = useToggle(false)
+  const [showOne, { toggle: toggleOne }] = useBoolean(false)
+  const [showTwo, { toggle: toggleTwo }] = useBoolean(false)
+  const [showThree, { toggle: toggleThree }] = useBoolean(false)
   return (
     <>
       <FormControlLabel
