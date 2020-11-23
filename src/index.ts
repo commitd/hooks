@@ -1,5 +1,6 @@
 export * from './useBoolean'
 export * from './useDebounce'
+export * from './useDebug'
 export * from './useEventListener'
 export * from './useHover'
 export * from './useInterval'
