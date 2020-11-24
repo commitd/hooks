@@ -22,12 +22,16 @@ export interface UseTitleDocsProps {
  *
  * __Note:__ You need to popout the stories so they are not in a nested iFrame to see the title changes.
  */
-export const UseTitleDocs = () => null
+export const UseTitleDocs: React.FC<UseTitleDocsProps> = () => null
 
 export default {
   title: 'Hooks/useTitle',
   component: UseTitleDocs,
   excludeStories: ['UseTitleDocs'],
+  argTypes: {
+    title: {},
+    options: { control: null },
+  },
 } as Meta
 
 const Template: Story<UseTitleDocsProps> = ({ title, options }) => {
