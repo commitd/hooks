@@ -11,7 +11,7 @@ import { useRef, useEffect, RefObject } from 'react'
  *
  * @param eventName the name of the event to listen to
  * @param handler the callback function to call on the event firing
- * @param element (optional) reference for the element to add the listener too
+ * @param element (optional) reference for the element to add the listener to
  */
 export function useEventListener<
   T extends HTMLElement = HTMLDivElement,
