@@ -108,4 +108,4 @@ Two actions are added by default:
 
 ## License
 
-[MIT](/LICENSE) - © Committed Software 2020 https://committed.io
+[MIT](/LICENSE) - © Committed Software 2020 <https://committed.io>
