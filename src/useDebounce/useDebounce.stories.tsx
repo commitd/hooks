@@ -107,7 +107,6 @@ export const Usage = () => {
             color="primary"
             value={delay}
             valueLabelDisplay="auto"
-            // @ts-ignore (bug in components)
             onChange={(_e: any, value: number | number[]) =>
               setDelay(value as number)
             }

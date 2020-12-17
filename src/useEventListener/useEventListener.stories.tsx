@@ -53,15 +53,14 @@ const Template: Story<UseEventListenerDocsProps> = ({
   eventName,
 }: UseEventListenerDocsProps) => {
   const [count, setCount] = React.useState(0)
-  const divRef = React.useRef<HTMLDivElement>(null)
-  useEventListener(eventName, () => setCount(count + 1), divRef)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+  useEventListener(eventName, () => setCount(count + 1), buttonRef)
   return (
     <div>
       <Typography>{`Counter: ${count}`}</Typography>
-      {/* Using div, see https://github.com/commitd/components/issues/68 */}
-      <div ref={divRef}>
-        <Button color="primary">{eventName}</Button>
-      </div>
+      <Button ref={buttonRef} color="primary">
+        {eventName}
+      </Button>
     </div>
   )
 }
