@@ -30,7 +30,9 @@ export interface UseDebounceDocsProps<T> {
  * Adapted from <https://usehooks.com/>, if more functionality or control is required use [use-debounce](https://github.com/xnimorz/use-debounce).
  *
  */
-export const UseDebounceDocs: React.FC<UseDebounceDocsProps<any>> = () => null
+export const UseDebounceDocs = <T extends any>(
+  props: UseDebounceDocsProps<T>
+) => null
 
 export default {
   title: 'Hooks/useDebounce',

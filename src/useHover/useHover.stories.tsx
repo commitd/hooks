@@ -4,7 +4,7 @@ import { Box } from '@committed/components'
 import { useHover } from '.'
 
 export interface UseHoverDocsProps<T extends HTMLElement> {
-  /** element reference to track hover on */
+  /** element reference to track hover on, T extends `HTMLElement` */
   element?: RefObject<T>
 }
 
@@ -13,7 +13,9 @@ export interface UseHoverDocsProps<T extends HTMLElement> {
  *
  * @param element reference for the element to add the listener too
  */
-export const UseHoverDocs: React.FC<UseHoverDocsProps<HTMLElement>> = () => null
+export const UseHoverDocs = <T extends HTMLElement>(
+  props: UseHoverDocsProps<T>
+) => null
 
 export default {
   title: 'Hooks/useHover',

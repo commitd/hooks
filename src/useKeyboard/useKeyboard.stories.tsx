@@ -14,7 +14,7 @@ import React, { useRef } from 'react'
 import { KEYBOARD_MODIFIERS, Keys, useKeyboard } from '.'
 import { useBoolean } from '../useBoolean/useBoolean'
 
-export interface UseKeyboardDocsProps<T> {
+export interface UseKeyboardDocsProps<T extends HTMLElement = HTMLDivElement> {
   /** The definition of the key filter.
    *
    * The basic definition is a string filter separated with the `+` e.g. `'a'` or `'ctrl+a'`
@@ -29,7 +29,7 @@ export interface UseKeyboardDocsProps<T> {
   handler: ((event: KeyboardEvent) => void) | null
   /** Options
    *
-   * - __element__ provide a ref for the element to bind to (defaults to `window`)
+   * - __element__ provide a ref for the element to bind to (defaults to `window`) (T extends `HTMLElement`)
    * - __event__ the key event to listen to (defaults to `keydown`)
    * - __ignoreKey__ set `true` to turn off the `KeyCode` test no other match (defaults to `false`)
    * - __ignoreRepeat__ set `true` to ignore repeat events (defaults to `false`)
@@ -45,7 +45,9 @@ export interface UseKeyboardDocsProps<T> {
 /**
  * useKeyboard hook to add a callback to be called on the use of the keyboard under specified circumstances.
  */
-export const UseKeyboardDocs: React.FC<UseKeyboardDocsProps<any>> = () => null
+export const UseKeyboardDocs = <T extends HTMLElement = HTMLDivElement>(
+  props: UseKeyboardDocsProps<T>
+) => null
 
 export default {
   title: 'Hooks/useKeyboard',

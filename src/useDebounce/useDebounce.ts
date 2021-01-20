@@ -9,8 +9,8 @@ import { useEffect, useState } from 'react'
  *
  * Adapted from <https://usehooks.com/>.
  *
- * @param value The value to debounce updates for
- * @param delay The time to delay updates by (ms)
+ * @param {T} value The value to debounce updates for
+ * @param { number | null} delay The time to delay updates by (ms)
  */
 export function useDebounce<T>(
   value: T,

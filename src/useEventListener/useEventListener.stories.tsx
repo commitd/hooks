@@ -10,7 +10,7 @@ export interface UseEventListenerDocsProps<
   eventName: string
   /** the callback function to call on the event firing  */
   handler: ((event: Event) => void) | null
-  /** (optional) reference for the element to add the listener too */
+  /** (optional) reference for the element to add the listener to T extends `HTMLElement` and defaults to `HTMLDivElement` */
   element?: RefObject<T>
 }
 
@@ -27,8 +27,9 @@ export interface UseEventListenerDocsProps<
  * @param handler the callback function
  * @param element (optional) reference for the element
  */
-export const UseEventListenerDocs: React.FC<UseEventListenerDocsProps> = () =>
-  null
+export const UseEventListenerDocs = <T extends HTMLElement>(
+  props: UseEventListenerDocsProps<T>
+) => null
 
 export default {
   title: 'Hooks/useEventListener',

@@ -19,8 +19,8 @@ export interface UseLocalStateDocsProps<T> {
  * useLocalState hook behaves like `React.useState`, returning the state and a function to set the value.
  * In addition, the value is put in local storage against the given key and is persisted through page refresh.
  */
-export const UseLocalStateDocs: React.FC<UseLocalStateDocsProps<any>> = (
-  _props: UseLocalStateDocsProps<any>
+export const UseLocalStateDocs = <T extends any>(
+  props: UseLocalStateDocsProps<T>
 ) => null
 
 export default {

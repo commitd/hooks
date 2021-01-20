@@ -14,9 +14,9 @@ export interface UseTrackedStateDocsProps<T> {
  *
  * @param initialState (optional) starting state or function to provide starting state
  */
-export const UseTrackedStateDocs: React.FC<UseTrackedStateDocsProps<
-  any
->> = () => null
+export const UseTrackedStateDocs = <T extends any>(
+  props: UseTrackedStateDocsProps<T>
+) => null
 
 export default {
   title: 'Hooks/useTrackedState',
