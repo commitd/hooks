@@ -17,11 +17,11 @@ const overrides = {
 export const committedLight = create({
   ...overrides,
   base: 'light',
-  brandImage: 'https://committed.software/Committed_Light.svg',
+  brandImage: 'https://committed.io/Committed_Light.svg',
 })
 
 export const committedDark = create({
   ...overrides,
   base: 'dark',
-  brandImage: 'https://committed.software/Committed_Dark.svg',
+  brandImage: 'https://committed.io/Committed_Dark.svg',
 })
