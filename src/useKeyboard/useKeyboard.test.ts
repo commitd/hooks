@@ -72,6 +72,22 @@ test('Should callback when any keydown', () => {
   expect(callback).toHaveBeenCalledTimes(1)
 })
 
+test('Should not callback when development set and in production', () => {
+  const previousEnv = process.env.NODE_ENV
+  process.env.NODE_ENV = 'production'
+  try {
+    const callback = jest.fn()
+    renderHook(() => useKeyboard('', callback, { development: true }))
+
+    fireEvent.keyDown(window, { key: randomCharacter() })
+    expect(callback).toHaveBeenCalledTimes(0)
+    fireEvent.keyUp(window, { key: randomCharacter() })
+    expect(callback).toHaveBeenCalledTimes(0)
+  } finally {
+    process.env.NODE_ENV = previousEnv
+  }
+})
+
 test('Should callback when any keyup', () => {
   const callback = jest.fn()
   renderHook(() => useKeyboard('', callback, { event: 'keyup' }))

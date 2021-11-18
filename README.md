@@ -1,19 +1,19 @@
 <h1 align="center">Committed Hooks</h1>
 <br>
 <p align="center">
-  <img src="https://committed.software/Logo.svg" width="128px" alt="Project Logo"/>
+  <img src="https://committed.io/Logo.svg" width="128px" alt="Project Logo"/>
 </p>
 <p align="center">
   Committed hooks library
 </p>
 
-[![Committed Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fcommitted.software%2Fbadge)](https://committed.io)
+[![Committed Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fcommitted.io%2Fbadge)](https://committed.io)
 ![Build Status](https://github.com/commitd/hooks/workflows/build/badge.svg?branch=main)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=commitd_hooks&metric=alert_status)](https://sonarcloud.io/dashboard?id=commitd_hooks)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=commitd_hooks&metric=coverage)](https://sonarcloud.io/dashboard?id=commitd_hooks)
 ![GitHub repo size](https://img.shields.io/github/repo-size/commitd/hooks)
 
-For documentation see <https://committed.software/hooks>
+For documentation see <https://https://hooks.committed.software>
 
 ## Install
 

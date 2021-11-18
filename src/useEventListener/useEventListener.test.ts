@@ -109,3 +109,45 @@ test('Should cope is handler is null', () => {
 
   expect(listeners.custom).toBeFalsy()
 })
+
+test('Should not listen if development and in production mode', () => {
+  const previousEnv = process.env.NODE_ENV
+  process.env.NODE_ENV = 'production'
+  try {
+    const listeners: Record<string, EventListenerOrEventListenerObject> = {}
+
+    jest
+      .spyOn(window, 'addEventListener')
+      .mockImplementation(
+        (
+          type: string,
+          listener: EventListenerOrEventListenerObject,
+          _options?: boolean | AddEventListenerOptions | undefined
+        ) => {
+          listeners[type] = listener
+        }
+      )
+    jest
+      .spyOn(window, 'removeEventListener')
+      .mockImplementation(
+        (
+          type: string,
+          _listener: EventListenerOrEventListenerObject,
+          _options?: boolean | AddEventListenerOptions | undefined
+        ) => {
+          delete listeners[type]
+        }
+      )
+
+    const handler = jest.fn()
+    const { unmount } = renderHook(() =>
+      useEventListener('mouseout', handler, undefined, true)
+    )
+    expect(listeners.mouseout).toBeFalsy()
+    unmount()
+
+    expect(listeners.mouseout).toBeFalsy()
+  } finally {
+    process.env.NODE_ENV = previousEnv
+  }
+})

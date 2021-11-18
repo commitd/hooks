@@ -38,7 +38,7 @@ const Template: Story<UseFaviconDocsProps> = ({ href }) => {
 
 export const Default = Template.bind({})
 Default.args = {
-  href: 'https://committed.software/Logo.svg',
+  href: 'https://committed.io/Logo.svg',
 }
 
 const Favicon: React.FC<{ href: string; retain: boolean }> = ({
@@ -62,10 +62,10 @@ const RetainTemplate: Story<{ retain: boolean }> = ({ retain }) => {
     <>
       <Row justifyContent="center">
         <CheckToken
-          selected={'https://committed.software/Logo.svg' === href}
+          selected={'https://committed.io/Logo.svg' === href}
           color="primary"
           mr={2}
-          onClick={() => setHref('https://committed.software/Logo.svg')}
+          onClick={() => setHref('https://committed.io/Logo.svg')}
         >
           Committed
         </CheckToken>
