@@ -12,6 +12,7 @@ import { useRef, useEffect, RefObject } from 'react'
  * @param eventName the name of the event to listen to
  * @param handler the callback function to call on the event firing
  * @param element (optional) reference for the element to add the listener to
+ * @param development (optional) mark true to apply only when not in `production`
  */
 export function useEventListener<
   T extends HTMLElement = HTMLDivElement,
@@ -19,7 +20,8 @@ export function useEventListener<
 >(
   eventName: string,
   handler: ((event: E) => void) | null,
-  element?: RefObject<T>
+  element?: RefObject<T>,
+  development?: boolean
 ): void {
   const savedHandler = useRef<((event: E) => void) | null>()
 
@@ -28,6 +30,9 @@ export function useEventListener<
   }, [handler])
 
   useEffect(() => {
+    if (development === true && process.env.NODE_ENV === 'production') {
+      return
+    }
     function eventListener(event: Event): void {
       const current = savedHandler.current
       if (current != null) current(event as E)

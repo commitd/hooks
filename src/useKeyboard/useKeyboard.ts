@@ -37,6 +37,7 @@ export interface KeyboardOptions<T extends HTMLElement>
   extends Partial<KeyboardFilterOptions> {
   element?: RefObject<T>
   event?: 'keydown' | 'keyup'
+  development?: boolean
 }
 
 function isKeyFilter(input: Keys): input is KeyFilter {
@@ -115,6 +116,7 @@ function createKeysFilter(keys: string, options: KeyboardFilterOptions) {
  * @param options.event {keyup | keydown} a ref for the element to bind to (defaults to `keydown`)
  * @param options.ignoreKey {boolean} set `true` to turn off the `KeyCode` test no other match (defaults to `false`)
  * @param options.ignoreRepeat {boolean} set `true` to ignore repeat events (defaults to `false`)
+ * @param options.development {boolean} set `true` to remove in production, using `process.env.NODE_ENV` (defaults to `false`)
  */
 export function useKeyboard<T extends HTMLElement = HTMLDivElement>(
   keys: Keys,
@@ -127,7 +129,7 @@ export function useKeyboard<T extends HTMLElement = HTMLDivElement>(
     savedHandler.current = handler
   }, [handler])
 
-  const { element, event = 'keydown' } = options
+  const { element, event = 'keydown', development } = options
   const {
     ignoreKey = DEFAULT_KEYBOARD_FILTER_OPTIONS.ignoreKey,
     ignoreRepeat = DEFAULT_KEYBOARD_FILTER_OPTIONS.ignoreRepeat,
@@ -163,5 +165,5 @@ export function useKeyboard<T extends HTMLElement = HTMLDivElement>(
     [keyFilter]
   )
 
-  useEventListener(event, keyHandler, element)
+  useEventListener(event, keyHandler, element, development)
 }
