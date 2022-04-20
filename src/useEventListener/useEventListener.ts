@@ -1,4 +1,4 @@
-import { useRef, useEffect, RefObject } from 'react'
+import { RefObject, useEffect, useRef } from 'react'
 
 /**
  * useEventListener hook adds an event listener to the given event type and calls the handler when fired.

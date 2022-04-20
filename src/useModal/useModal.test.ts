@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { useModal } from './useModal'
 
 test('should start in given state', () => {

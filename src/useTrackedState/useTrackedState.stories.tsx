@@ -1,7 +1,7 @@
+import { Button, Column, Input, Row } from '@committed/components'
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { Story, Meta } from '@storybook/react'
 import { useTrackedState } from '.'
-import { Row, TextField, Button } from '@committed/components'
 
 export interface UseTrackedStateDocsProps<T> {
   /** optional starting state */
@@ -31,48 +31,29 @@ const Template: Story<UseTrackedStateDocsProps<number>> = ({
     initialState
   )
   return (
-    <>
-      <TextField label="Value" disabled value={value} />
-      <Row>
-        <Button
-          mt={2}
-          mr={2}
-          color="primary"
-          onClick={() => setValue(value + 1)}
-        >
+    <Column gap>
+      <Input label="Value" readOnly value={value} />
+      <Row gap>
+        <Button variant="primary" onClick={() => setValue(value + 1)}>
           +
         </Button>
         {/* As in setState, you can set the value with a new value (as above) or
          * a function (as below) that is provided the current value and should
          * return the new one */}
         <Button
-          mt={2}
-          mr={2}
-          color="primary"
+          variant="primary"
           onClick={() => setValue((current) => --current)}
         >
           -
         </Button>
-        <Button
-          mt={2}
-          mr={2}
-          disabled={!canUndo}
-          color="primary"
-          onClick={undo}
-        >
+        <Button disabled={!canUndo} variant="primary" onClick={undo}>
           Undo
         </Button>
-        <Button
-          mt={2}
-          mr={2}
-          disabled={!canRedo}
-          color="primary"
-          onClick={redo}
-        >
+        <Button disabled={!canRedo} variant="primary" onClick={redo}>
           Redo
         </Button>
       </Row>
-    </>
+    </Column>
   )
 }
 

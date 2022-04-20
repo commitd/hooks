@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.0.0-development",
   "name": "@committed/hooks",
   "description": "Committed hooks library",
   "author": "Committed",
@@ -19,18 +19,21 @@
   },
   "scripts": {
     "clean": "shx rm -rf dist",
+    "commit": "cz",
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
+    "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook --no-dll",
+    "storybook": "start-storybook -p 6006 -h 0.0.0.0",
+    "build-storybook": "build-storybook",
     "format": "prettier --write '**/{src,test,stories}/**/{*.js,*.ts,*.tsx,*.json,*.md,*.mdx}'",
+    "format:check": "prettier --check '**/{src,test,stories}/**/{*.js,*.ts,*.tsx,*.json,*.md,*.mdx}'",
     "deploy-storybook": "storybook-to-ghpages",
-    "generate": "plop --plopfile ./generators/plopfile.js"
+    "generate": "plop --plopfile ./generators/plopfile.js",
+    "prepare": "husky install && tsdx build",
+    "semantic-release": "semantic-release"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -67,16 +70,36 @@
       ".*.stories.tsx"
     ]
   },
+  "release": {
+    "branches": [
+      "main",
+      {
+        "name": "beta",
+        "prerelease": true
+      }
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
-    "@committed/components": "^4.0.0",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@committed/components": "^7.0.1",
+    "@fontsource/dosis": "^4.5.7",
+    "@fontsource/inter": "^4.5.7",
     "@size-limit/preset-small-lib": "^4.6.2",
-    "@storybook/addon-essentials": "^6.1.14",
-    "@storybook/react": "^6.1.14",
-    "@storybook/storybook-deployer": "^2.8.7",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/react": "^6.4.22",
+    "@storybook/storybook-deployer": "^2.8.11",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/react-hooks": "^3.4.2",
@@ -86,14 +109,19 @@
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "babel-loader": "^8.1.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint-config-prettier": "^6.14.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "eslint-plugin-security": "^1.4.0",
-    "husky": "^4.3.0",
+    "eslint-plugin-storybook": "^0.5.10",
+    "husky": "^7.0.4",
     "jest-sonar-reporter": "^2.0.0",
     "plop": "^2.7.4",
     "prettier": "^2.1.2",
+    "prettier-plugin-organize-imports": "^2.3.4",
     "pretty-quick": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -101,9 +129,11 @@
     "react-test-renderer": "^17.0.1",
     "shx": "^0.3.2",
     "size-limit": "^4.6.2",
+    "storybook-dark-mode": "^1.0.9",
     "swr": "^0.3.8",
     "tsdx": "^0.14.1",
-    "tslib": "^2.0.3",
-    "typescript": "^4.0.3"
-  }
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {}
 }

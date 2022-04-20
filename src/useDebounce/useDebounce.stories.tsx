@@ -3,10 +3,11 @@ import {
   Button,
   Column,
   Heading,
+  Input,
+  Paragraph,
   Row,
   Slider,
-  TextField,
-  Typography,
+  Text,
 } from '@committed/components'
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
@@ -52,15 +53,15 @@ const Template: Story<UseDebounceDocsProps<string>> = ({ delay }) => {
   const [text, setText] = React.useState('Change me!')
   const [debounced] = useDebounce(text, delay)
   return (
-    <>
-      <TextField
-        mb={3}
+    <Column gap>
+      <Input
         value={text}
         label="Input"
-        onChange={(e) => setText(e.target.value)}
+        onValueChange={setText}
+        enterKeyHint={undefined}
       />
-      <Typography>{`Debounced: ${debounced}`}</Typography>
-    </>
+      <Text>{`Debounced: ${debounced}`}</Text>
+    </Column>
   )
 }
 
@@ -96,44 +97,40 @@ export const Usage = () => {
 
   return (
     <Column>
-      <TextField
+      <Input
         label="Search countries"
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onValueChange={setText}
+        enterKeyHint={undefined}
       />
-      <Row>
-        <Box width={1 / 2} p={2}>
-          <Heading.h2>Data</Heading.h2>
-          <Typography>{`Delay: ${delay}ms`}</Typography>
+      <Row spaced>
+        <Box>
+          <Heading>Data</Heading>
+          <Text>{`Delay: ${delay}ms`}</Text>
           <Slider
-            color="primary"
-            value={delay}
-            valueLabelDisplay="auto"
-            // @ts-ignore (bug in components)
-            onChange={(_e: any, value: number | number[]) =>
-              setDelay(value as number)
-            }
+            variant="primary"
+            value={[delay]}
+            onValueChange={(value) => setDelay(value[0])}
             step={100}
             min={0}
             max={1000}
-            marks={true}
           />
-          <Typography>Actual value: {text}</Typography>
-          <Typography>Debounced value: {debouncedName}</Typography>
-          <Typography>API calls: {calls}</Typography>
+          <Text>Actual value: {text}</Text>
+          <Text>Debounced value: {debouncedName}</Text>
+          <Text>API calls: {calls}</Text>
         </Box>
-        <Box width={1 / 2} p={2}>
-          <Heading.h2>Counties:</Heading.h2>
+        <Box>
+          <Heading>Counties:</Heading>
           {countries && countries.length ? (
             <ul>
               {countries.map((country) => (
                 <li key={country.alpha3Code}>
-                  <Typography>{country.name}</Typography>
+                  <Text>{country.name}</Text>
                 </li>
               ))}
             </ul>
           ) : (
-            <Typography>No Countries Found</Typography>
+            <Text>No Countries Found</Text>
           )}
         </Box>
       </Row>
@@ -167,53 +164,49 @@ export const Flush = () => {
 
   return (
     <Column>
-      <Row>
-        <TextField
+      <Row gap css={{ alignItems: 'flex-end' }}>
+        <Input
           label="Search capital"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onValueChange={setText}
+          enterKeyHint={undefined}
         />
         <Button
           disabled={debouncedName === text}
-          color="primary"
+          variant="primary"
           onClick={flush}
         >
           Search
         </Button>
       </Row>
-      <Row>
-        <Box width={1 / 2} p={2}>
-          <Heading.h2>Data</Heading.h2>
-          <Typography>{`Delay: ${delay}ms`}</Typography>
+      <Row spaced>
+        <Box>
+          <Heading>Data</Heading>
+          <Text>{`Delay: ${delay}ms`}</Text>
           <Slider
-            color="primary"
-            value={delay}
-            valueLabelDisplay="auto"
-            // @ts-ignore (bug in components)
-            onChange={(_e: any, value: number | number[]) =>
-              setDelay(value as number)
-            }
+            variant="primary"
+            value={[delay]}
+            onValueChange={(value) => setDelay(value[0])}
             step={1000}
             min={1000}
             max={10000}
-            marks={true}
           />
-          <Typography>Actual value: {text}</Typography>
-          <Typography>Debounced value: {debouncedName}</Typography>
-          <Typography>API calls: {calls}</Typography>
+          <Paragraph>Actual value: {text}</Paragraph>
+          <Paragraph>Debounced value: {debouncedName}</Paragraph>
+          <Paragraph>API calls: {calls}</Paragraph>
         </Box>
-        <Box width={1 / 2} p={2}>
-          <Heading.h2>Capitals:</Heading.h2>
+        <Box>
+          <Heading>Capitals:</Heading>
           {countries && countries.length ? (
             <ul>
               {countries.map((country) => (
                 <li key={country.alpha3Code}>
-                  <Typography>{`${country.capital} (${country.name})`}</Typography>
+                  <Text>{`${country.capital} (${country.name})`}</Text>
                 </li>
               ))}
             </ul>
           ) : (
-            <Typography>No Countries Found</Typography>
+            <Text>No Countries Found</Text>
           )}
         </Box>
       </Row>

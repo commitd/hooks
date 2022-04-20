@@ -1,4 +1,4 @@
-import { useState, RefObject } from 'react'
+import { RefObject, useState } from 'react'
 import { useEventListener } from '../useEventListener/useEventListener'
 
 /**

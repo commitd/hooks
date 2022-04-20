@@ -1,7 +1,7 @@
 module.exports = {
   stories: [
     '../stories/**/*.stories.mdx',
-    '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
     {
@@ -10,6 +10,7 @@ module.exports = {
         backgrounds: false,
       },
     },
+    'storybook-dark-mode',
   ],
   // https://storybook.js.org/docs/react/configure/typescript#mainjs-configuration
   typescript: {

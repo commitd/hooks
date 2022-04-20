@@ -1,5 +1,6 @@
+import { committedDark, committedLight } from './committed/theme.js'
 import { withTheme } from './committed/withTheme'
-import { committedLight } from './committed/theme'
+import { DocsContainer } from './components/DocsContainer'
 
 export const decorators = [withTheme]
 
@@ -11,7 +12,11 @@ export const parameters = {
     },
   },
   docs: {
-    theme: committedLight,
     source: { type: 'code' },
+    container: DocsContainer,
+  },
+  darkMode: {
+    dark: committedDark,
+    light: committedLight,
   },
 }

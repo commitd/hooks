@@ -1,14 +1,6 @@
-import {
-  Box,
-  Button,
-  Loader,
-  LoaderProps,
-  Row,
-  CheckToken,
-  ToggleButtonGroup,
-} from '@committed/components'
+import { Button, Radio, RadioGroup, Row, Spinner } from '@committed/components'
 import { Meta, Story } from '@storybook/react'
-import React from 'react'
+import React, { ComponentProps } from 'react'
 import { useBoolean } from '.'
 
 export interface UseBooleanDocsProps {
@@ -37,18 +29,18 @@ export default {
 const Template: Story<UseBooleanDocsProps> = ({ defaultValue }) => {
   const [spin, { toggle, setTrue, setFalse }] = useBoolean(defaultValue)
   return (
-    <>
-      <Button color="primary" onClick={toggle}>
+    <Row gap css={{ overflow: 'hidden' }}>
+      <Button variant="primary" onClick={toggle}>
         Toggle
       </Button>
-      <Button disabled={spin} ml={2} color="secondary" onClick={setTrue}>
+      <Button disabled={spin} onClick={setTrue}>
         Start
       </Button>
-      <Button disabled={!spin} ml={2} color="secondary" onClick={setFalse}>
+      <Button disabled={!spin} onClick={setFalse}>
         Stop
       </Button>
-      <Loader variant="spin" loading={spin} />
-    </>
+      <Spinner variant="spin" active={spin} />
+    </Row>
   )
 }
 
@@ -66,56 +58,32 @@ DefaultTrue.parameters = {
   },
 }
 
-type Variants = Pick<LoaderProps, 'variant'>
+type JustVariants<C> = C extends string ? C : never
+type Variant = JustVariants<ComponentProps<typeof Spinner>['variant']>
 
 export const SetState: Story = () => {
   const [animate, { setTrue: start, setFalse: stop }] = useBoolean(false)
 
-  const [variant, setVariant] = React.useState<Variants>('spin' as Variants)
+  const [variant, setVariant] = React.useState<Variant>('spin' as Variant)
 
   return (
-    <>
-      <Row>
-        <Button disabled={animate} color="primary" onClick={start}>
-          Start
-        </Button>
-        <Button disabled={!animate} ml={2} color="primary" onClick={stop}>
-          Stop
-        </Button>
-        <Box flexGrow={1} />
-        <ToggleButtonGroup value={variant} exclusive>
-          <CheckToken
-            color="secondary"
-            value="spin"
-            onClick={() => setVariant('spin' as Variants)}
-          >
-            Spin
-          </CheckToken>
-          <CheckToken
-            color="secondary"
-            value="flip"
-            onClick={() => setVariant('flip' as Variants)}
-          >
-            Flip
-          </CheckToken>
-          <CheckToken
-            color="secondary"
-            value="draw"
-            onClick={() => setVariant('draw' as Variants)}
-          >
-            Draw
-          </CheckToken>
-          <CheckToken
-            color="secondary"
-            value="scale"
-            onClick={() => setVariant('scale' as Variants)}
-          >
-            Scale
-          </CheckToken>
-        </ToggleButtonGroup>
-      </Row>
-      <Loader variant={variant} loading={animate} />
-    </>
+    <Row gap css={{ overflow: 'hidden' }}>
+      <RadioGroup
+        value={variant}
+        onValueChange={(v) => setVariant(v as Variant)}
+      >
+        <Radio value="spin" label="Spin" />
+        <Radio value="draw" label="Draw" />
+        <Radio value="scale" label="Scale" />
+      </RadioGroup>
+      <Button disabled={animate} color="primary" onClick={start}>
+        Start
+      </Button>
+      <Button disabled={!animate} color="primary" onClick={stop}>
+        Stop
+      </Button>
+      <Spinner variant={variant} active={animate} />
+    </Row>
   )
 }
 

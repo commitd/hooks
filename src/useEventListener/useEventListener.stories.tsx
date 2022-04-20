@@ -1,5 +1,5 @@
+import { Button, Paragraph } from '@committed/components'
 import { Meta, Story } from '@storybook/react'
-import { Button, Typography } from '@committed/components'
 import React, { RefObject } from 'react'
 import { useEventListener } from '.'
 
@@ -54,15 +54,14 @@ const Template: Story<UseEventListenerDocsProps> = ({
   eventName,
 }: UseEventListenerDocsProps) => {
   const [count, setCount] = React.useState(0)
-  const divRef = React.useRef<HTMLDivElement>(null)
+  const divRef = React.useRef<HTMLButtonElement>(null)
   useEventListener(eventName, () => setCount(count + 1), divRef)
   return (
     <div>
-      <Typography>{`Counter: ${count}`}</Typography>
-      {/* Using div, see https://github.com/commitd/components/issues/68 */}
-      <div ref={divRef}>
-        <Button color="primary">{eventName}</Button>
-      </div>
+      <Paragraph>{`Counter: ${count}`}</Paragraph>
+      <Button ref={divRef} variant="primary">
+        {eventName}
+      </Button>
     </div>
   )
 }
@@ -77,7 +76,7 @@ export const WindowAndEvents = () => {
     setX(event.offsetX)
     setY(event.offsetY)
   })
-  return <Typography>{`Mouse Position: ${x}, ${y}`}</Typography>
+  return <Paragraph>{`Mouse Position: ${x}, ${y}`}</Paragraph>
 }
 WindowAndEvents.parameters = {
   docs: {

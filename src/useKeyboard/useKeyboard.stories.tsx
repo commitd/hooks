@@ -1,13 +1,15 @@
 import {
   Button,
-  FormControlLabel,
+  Form,
+  FormControl,
   Heading,
+  Label,
   Monospace,
+  Paragraph,
   Row,
   Span,
   Switch,
-  TextField,
-  Typography,
+  TextArea,
 } from '@committed/components'
 import { Meta, Story } from '@storybook/react'
 import React, { useRef } from 'react'
@@ -69,7 +71,7 @@ const Template: Story<UseKeyboardDocsProps<any>> = ({ keys }) => {
     { event: 'keyup' }
   )
   return (
-    <Button disabled={!pressed} color="primary">
+    <Button disabled={!pressed} variant="primary">
       {keys}
     </Button>
   )
@@ -81,7 +83,10 @@ Default.args = {
 }
 
 const Indicate: React.FC<{ state: boolean }> = ({ state }) => (
-  <Span bold={state} color={state ? 'textPrimary' : 'textSecondary'}>
+  <Span
+    weight={state ? 'bold' : 'regular'}
+    css={{ color: state ? '$text' : '$textSecondary' }}
+  >
     {`${state}`}
   </Span>
 )
@@ -113,26 +118,28 @@ export const KeyFilters: Story = () => {
   })
   return (
     <div>
-      <Heading.h2>
+      <Heading>
         {pressed === undefined ? 'Press a key' : createFilter(pressed)}
-      </Heading.h2>
-      <Typography>
+      </Heading>
+      <Paragraph>
         {'Key: '}
-        <Span bold>{pressed?.key}</Span>
+        <Span weight={'bold'}>{pressed?.key}</Span>
         {pressed?.repeat ? ' (Repeat)' : ''}
-      </Typography>
-      <Typography>
+      </Paragraph>
+      <Paragraph>
         {`Modifiers: `}
-        <Span bold={pressed?.altKey}>Alt</Span>
+        <Span weight={pressed?.altKey ? 'bold' : 'regular'}>Alt</Span>
         {', '}
-        <Span bold={pressed?.ctrlKey}>Control</Span>
+        <Span weight={pressed?.ctrlKey ? 'bold' : 'regular'}>Control</Span>
         {', '}
-        <Span bold={pressed?.metaKey}>Meta</Span>
+        <Span weight={pressed?.metaKey ? 'bold' : 'regular'}>Meta</Span>
         {', '}
-        <Span bold={pressed?.getModifierState('OS')}>OS</Span>
+        <Span weight={pressed?.getModifierState('OS') ? 'bold' : 'regular'}>
+          OS
+        </Span>
         {', '}
-        <Span bold={pressed?.shiftKey}>Shift</Span>
-      </Typography>
+        <Span weight={pressed?.shiftKey ? 'bold' : 'regular'}>Shift</Span>
+      </Paragraph>
     </div>
   )
 }
@@ -169,9 +176,9 @@ export const KeysArray: Story = () => {
     }
   )
   return (
-    <Heading.h2>
+    <Heading>
       {pressed === undefined ? 'Press a function key' : `Pressed ${pressed}`}
-    </Heading.h2>
+    </Heading>
   )
 }
 KeysArray.parameters = {
@@ -189,7 +196,7 @@ export const Event: Story = () => {
 
   return (
     <div>
-      <Heading.h2>{pressed ? 'Key down' : `Key up`}</Heading.h2>
+      <Heading>{pressed ? 'Key down' : `Key up`}</Heading>
     </div>
   )
 }
@@ -213,16 +220,16 @@ export const Repeat: Story = () => {
   })
   return (
     <div>
-      <Typography>Press and hold 'q'</Typography>
-      <Typography>
+      <Paragraph>Press and hold 'q'</Paragraph>
+      <Paragraph>
         {`${repeat} events with `}
-        <Monospace component="span">{`{ignoreRepeat: false}`}</Monospace>
+        <Monospace>{`{ignoreRepeat: false}`}</Monospace>
         {'(default)'}
-      </Typography>
-      <Typography>
+      </Paragraph>
+      <Paragraph>
         {`${single} events with `}
-        <Monospace component="span">{`{ignoreRepeat: true}`}</Monospace>
-      </Typography>
+        <Monospace>{`{ignoreRepeat: true}`}</Monospace>
+      </Paragraph>
     </div>
   )
 }
@@ -254,16 +261,19 @@ export const KeyOption: Story = () => {
     { event: 'keyup' }
   )
   return (
-    <Row>
-      <Button disabled={!i} color="primary">
+    <Row gap centered>
+      <Button disabled={!i} variant="primary">
         I
       </Button>
-      <Button disabled={!ctrlalti} color="primary" mx={2}>
+      <Button disabled={!ctrlalti} variant="primary">
         ctrl+alt+i
       </Button>
-      <FormControlLabel
-        control={<Switch onChange={toggle} value={ignoreKey} color="primary" />}
-        label="ingoreKey"
+      <Label htmlFor="ignore-switch">ingoreKey</Label>
+      <Switch
+        id="ignore-switch"
+        variant="primary"
+        onCheckedChange={toggle}
+        checked={ignoreKey}
       />
     </Row>
   )
@@ -282,7 +292,7 @@ Experiment with this example by toggling the option and trying different key com
 }
 
 export const BoundToElement: Story = () => {
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLTextAreaElement>()
   const [value, setValue] = React.useState('')
   const [pressed, setPressed] = React.useState('')
   useKeyboard(
@@ -298,15 +308,17 @@ export const BoundToElement: Story = () => {
     { element: inputRef }
   )
   return (
-    <div>
-      <TextField
-        value={value}
-        innerRef={inputRef}
-        multiline
-        label="Type"
-        placeholder="Will show key presses as filters, press esc to clear."
-      />
-    </div>
+    <Form>
+      <FormControl css={{ width: '100%' }}>
+        <TextArea
+          css={{ width: '100%' }}
+          value={value}
+          ref={inputRef}
+          label="Type"
+          placeholder="Will show key presses as filters, press esc to clear."
+        />
+      </FormControl>
+    </Form>
   )
 }
 BoundToElement.parameters = {

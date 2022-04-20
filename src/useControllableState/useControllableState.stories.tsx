@@ -1,8 +1,8 @@
-import React from 'react'
-import { Story, Meta } from '@storybook/react'
-import { useControllableState } from '.'
-import { CheckToken } from '@committed/components'
+import { Checkbox } from '@committed/components'
 import { action } from '@storybook/addon-actions'
+import { Meta, Story } from '@storybook/react'
+import React from 'react'
+import { useControllableState } from '.'
 
 export interface UseControllableStateDocsProps<T> {
   /** The controlled value (of type T) or undefined for an uncontrolled value */
@@ -35,13 +35,12 @@ const Template: Story<UseControllableStateDocsProps<boolean>> = ({
 }) => {
   const [state, setState] = useControllableState(value, setValue, false)
   return (
-    <CheckToken
-      color="primary"
-      selected={state}
-      onClick={() => setState(!state)}
-    >
-      {value === undefined ? 'Uncontrolled' : 'Controlled'}
-    </CheckToken>
+    <Checkbox
+      variant="primary"
+      checked={state}
+      onCheckedChange={() => setState(!state)}
+      label={value === undefined ? 'Uncontrolled' : 'Controlled'}
+    />
   )
 }
 

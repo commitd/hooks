@@ -46,7 +46,7 @@ export function useControllableState<T = any>(
       }
     }
   }
-  useEffect(effect, [isControlled])
+  useEffect(effect, [effect, isControlled])
 
   return [
     (wasControlled ? value : uncontrolled) as T,

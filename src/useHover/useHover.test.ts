@@ -1,6 +1,6 @@
-import { renderHook, act } from '@testing-library/react-hooks'
-import { useHover } from '.'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { RefObject } from 'react'
+import { useHover } from '.'
 
 let listeners: Record<string, () => void>
 let ref: RefObject<HTMLDivElement>
