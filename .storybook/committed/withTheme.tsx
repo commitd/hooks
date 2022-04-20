@@ -1,5 +1,16 @@
 import React from 'react'
-import { ThemeProvider } from '@committed/components'
+import { useDarkMode } from 'storybook-dark-mode'
+import {
+  ComponentsProvider,
+  darkTheme,
+  lightTheme,
+} from '@committed/components'
+import '@fontsource/inter/300.css'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/700.css'
+import '@fontsource/dosis/700.css'
+import '@fontsource/dosis/400.css'
+import '@fontsource/dosis/300.css'
 
 /**
  * Wrap a component with the default ThemeProvider
@@ -7,9 +18,14 @@ import { ThemeProvider } from '@committed/components'
  * @param {*} Story storybook component to wrap
  */
 export const withTheme = (Story) => {
+  // Clean the theme first
+  document.body.classList.remove(darkTheme)
+  document.body.classList.remove(lightTheme)
+
+  const choice = useDarkMode() ? 'dark' : 'light'
   return (
-    <ThemeProvider choice="light">
+    <ComponentsProvider theme={{ choice }}>
       <Story />
-    </ThemeProvider>
+    </ComponentsProvider>
   )
 }

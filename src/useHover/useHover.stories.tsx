@@ -1,6 +1,6 @@
-import React, { RefObject } from 'react'
-import { Story, Meta } from '@storybook/react'
 import { Box } from '@committed/components'
+import { Meta, Story } from '@storybook/react'
+import React, { RefObject } from 'react'
 import { useHover } from '.'
 
 export interface UseHoverDocsProps<T extends HTMLElement> {
@@ -31,11 +31,13 @@ const Template: Story<UseHoverDocsProps<HTMLDivElement>> = () => {
   const [isHovered] = useHover(divRef)
   return (
     <Box
-      m={3}
-      p={3}
+      css={{
+        m: '$3',
+        p: '$3',
+        backgroundColor: isHovered ? '$primary' : '$primaryContrast',
+        color: isHovered ? '$primaryContrast' : '$primary',
+      }}
       ref={divRef}
-      bgcolor={isHovered ? 'primary.main' : 'secondary.main'}
-      color={isHovered ? 'primary.contrastText' : 'secondary.contrastText'}
     >{`This is ${isHovered ? `hovered` : `unhovered`}`}</Box>
   )
 }

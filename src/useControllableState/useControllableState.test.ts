@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { useControllableState } from '.'
 
 let spy: jest.SpyInstance<void, [message?: any, ...optionalParams: any[]]>

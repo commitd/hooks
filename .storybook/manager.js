@@ -1,6 +1,11 @@
 import { addons } from '@storybook/addons'
-import { committedLight } from './committed/theme'
+import { committedDark, committedLight } from './committed/theme.js'
 
 addons.setConfig({
+  darkMode: {
+    dark: committedDark,
+    light: committedLight,
+  },
   theme: committedLight,
+  showPanel: false,
 })

@@ -1,6 +1,13 @@
+import {
+  Button,
+  Column,
+  FormControl,
+  Label,
+  Paragraph,
+  Slider,
+} from '@committed/components'
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { Story, Meta } from '@storybook/react'
-import { Typography, Button, Slider } from '@committed/components'
 import { usePoll } from '.'
 
 export interface UsePollDocsProps {
@@ -39,7 +46,7 @@ export default {
 const Template: Story<Omit<UsePollDocsProps, 'callback'>> = ({ delay }) => {
   const [count, setCount] = React.useState(0)
   usePoll(() => setCount(count + 1), delay)
-  return <Typography>{count}</Typography>
+  return <Paragraph>{count}</Paragraph>
 }
 
 export const Default = Template.bind({})
@@ -50,53 +57,44 @@ export const AwaitPromise = () => {
   const [pollDelay, setPollDelay] = React.useState(500)
   const [count, setCount] = React.useState(0)
 
-  usePoll(
+  const callback = React.useCallback(
     () =>
       new Promise((resolve) => {
         setTimeout(resolve, callbackDelay)
       }).then(() => {
-        setCount(count + 1)
+        setCount((count) => count + 1)
       }),
-    pollDelay
+    [callbackDelay, setCount]
   )
+  usePoll(callback, pollDelay)
 
   return (
-    <>
-      <Typography fontSize={3} mb={4}>
-        {`Counter: ${count}`}
-      </Typography>
-      <Typography fontSize={3} mb={2}>
-        {`Poll Delay: ${pollDelay}`}
-      </Typography>
-      <Slider
-        color="primary"
-        value={pollDelay}
-        valueLabelDisplay="auto"
-        // @ts-ignore (bug in components)
-        onChange={(_e: any, value: number | number[]) =>
-          setPollDelay(value as number)
-        }
-        step={100}
-        min={0}
-        max={1000}
-        marks={true}
-      />
-      <Typography fontSize={3} mb={2}>
-        {`Handler Delay: ${callbackDelay}`}
-      </Typography>
-      <Slider
-        color="primary"
-        value={callbackDelay}
-        valueLabelDisplay="auto"
-        // @ts-ignore (bug in components)
-        onChange={(_e: any, value: number | number[]) =>
-          setCallbackDelay(value as number)
-        }
-        step={100}
-        min={0}
-        max={1000}
-      />
-    </>
+    <Column gap>
+      <Paragraph size={3}>{`Counter: ${count}`}</Paragraph>
+      <FormControl>
+        <Label htmlFor="poll-slider">{`Poll Delay: ${pollDelay}`}</Label>
+        <Slider
+          id="poll-slider"
+          variant="primary"
+          value={[pollDelay]}
+          onValueChange={(value) => setPollDelay(value[0])}
+          step={100}
+          min={0}
+          max={1000}
+        />
+      </FormControl>
+      <FormControl>
+        <Label htmlFor="delay-slider">{`Handler Delay: ${callbackDelay}`}</Label>
+        <Slider
+          id="delay-slider"
+          value={[callbackDelay]}
+          onValueChange={(value) => setCallbackDelay(value[0])}
+          step={100}
+          min={0}
+          max={1000}
+        />
+      </FormControl>
+    </Column>
   )
 }
 AwaitPromise.parameters = {
@@ -113,9 +111,9 @@ export const Pause = () => {
   usePoll(() => setCount(count + 1), delay)
   return (
     <>
-      <Typography>{count}</Typography>
+      <Paragraph>{count}</Paragraph>
       <Button
-        color="primary"
+        variant="primary"
         onClick={() => (delay === null ? setDelay(100) : setDelay(null))}
       >
         {delay === null ? 'Start' : 'Stop'}
@@ -153,13 +151,11 @@ export const HandleError = () => {
 
   return (
     <>
-      <Typography fontSize={3} mb={4}>
-        {`Counter: ${count}`}
-      </Typography>
+      <Paragraph size={3}>{`Counter: ${count}`}</Paragraph>
       {error && (
-        <Typography color="error" fontSize={3} mb={4}>
+        <Paragraph css={{ color: '$error' }} size={3}>
           {`Error: ${error}`}
-        </Typography>
+        </Paragraph>
       )}
       <Button
         onClick={() => {

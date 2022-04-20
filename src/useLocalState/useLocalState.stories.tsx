@@ -1,6 +1,6 @@
+import { Button, Column, Input, Row } from '@committed/components'
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { Story, Meta } from '@storybook/react'
-import { TextField, Button } from '@committed/components'
 import { useLocalState } from '.'
 
 export interface UseLocalStateDocsProps<T> {
@@ -46,17 +46,17 @@ const Template: Story<UseLocalStateDocsProps<string>> = ({
 }) => {
   const [value, setValue] = useLocalState(key, defaultValue)
   return (
-    <div>
-      <TextField
-        mb={2}
+    <Column gap>
+      <Input
         label="Value"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onValueChange={setValue}
+        enterKeyHint={undefined}
       />
-      <Button color="primary" onClick={() => location.reload()}>
+      <Button variant="primary" onClick={() => location.reload()}>
         Refresh page
       </Button>
-    </div>
+    </Column>
   )
 }
 
@@ -83,21 +83,21 @@ export const WithClear = () => {
     () => 'Supplied'
   )
   return (
-    <div>
-      <TextField
-        mb={2}
+    <Column gap>
+      <Input
         label="Value"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <Button color="primary" onClick={() => location.reload()}>
-        Refresh page
-      </Button>
-
-      <Button ml={2} color="secondary" onClick={clear}>
-        Clear
-      </Button>
-    </div>
+      <Row gap>
+        <Button variant="primary" onClick={() => location.reload()}>
+          Refresh page
+        </Button>
+        <Button destructive onClick={clear}>
+          Clear
+        </Button>
+      </Row>
+    </Column>
   )
 }
 WithClear.parameters = {

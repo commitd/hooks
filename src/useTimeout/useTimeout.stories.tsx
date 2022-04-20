@@ -1,6 +1,6 @@
+import { Button, Paragraph, Row } from '@committed/components'
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { Story, Meta } from '@storybook/react'
-import { Typography, Button } from '@committed/components'
 import { useTimeout } from '.'
 
 export interface UseTimeoutDocsProps {
@@ -33,7 +33,7 @@ export default {
 const Template: Story<UseTimeoutDocsProps> = ({ delay }) => {
   const [message, setMessage] = React.useState('Computing...')
   useTimeout(() => setMessage('Done!'), delay)
-  return <Typography>{message}</Typography>
+  return <Paragraph>{message}</Paragraph>
 }
 
 export const Default = Template.bind({})
@@ -45,21 +45,22 @@ export const Pause = () => {
   useTimeout(() => setCount(count + 1), delay)
   return (
     <>
-      <Typography>{count}</Typography>
-      <Button
-        color="primary"
-        onClick={() => (delay === null ? setDelay(100) : setDelay(delay * 2))}
-      >
-        {delay === null ? 'Start' : `Double delay (${delay})`}
-      </Button>
-      <Button
-        ml={2}
-        color="secondary"
-        disabled={delay === null}
-        onClick={() => setDelay(null)}
-      >
-        Reset
-      </Button>
+      <Paragraph>{count}</Paragraph>
+      <Row gap>
+        <Button
+          variant="primary"
+          onClick={() => (delay === null ? setDelay(100) : setDelay(delay * 2))}
+        >
+          {delay === null ? 'Start' : `Double delay (${delay})`}
+        </Button>
+        <Button
+          variant="secondary"
+          disabled={delay === null}
+          onClick={() => setDelay(null)}
+        >
+          Reset
+        </Button>
+      </Row>
     </>
   )
 }

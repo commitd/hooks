@@ -1,6 +1,6 @@
+import { Checkbox, Column, Row } from '@committed/components'
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { Story, Meta } from '@storybook/react'
-import { Row, CheckToken, Column } from '@committed/components'
 import { useFavicon } from '.'
 
 export interface UseFaviconDocsProps {
@@ -15,6 +15,10 @@ export interface UseFaviconDocsProps {
 
 /**
  * useFavicon changes (or creates) the favicon for the given href.
+ *
+ * ### POPOUT !
+ *
+ * > As these docs are in their own iframe you can't see their favicon.
  *
  * See __Example__  (<a href="iframe.html?id=hooks-usefavicon--example&viewMode=story" target="_blank" rel="noopener">Popout</a>) to see favicon changing!
  * See __Retain__ (<a href="iframe.html?id=hooks-usefavicon--retain&viewMode=story" target="_blank" rel="noopener">Popout</a>) to see favicon retained!
@@ -60,40 +64,34 @@ const RetainTemplate: Story<{ retain: boolean }> = ({ retain }) => {
   const [href, setHref] = React.useState<string | null>(null)
   return (
     <>
-      <Row justifyContent="center">
-        <CheckToken
-          selected={'https://committed.io/Logo.svg' === href}
-          color="primary"
-          mr={2}
-          onClick={() => setHref('https://committed.io/Logo.svg')}
-        >
-          Committed
-        </CheckToken>
-        <CheckToken
-          selected={
+      <Row gap>
+        <Checkbox
+          checked={'https://committed.io/Logo.svg' === href}
+          variant="primary"
+          onCheckedChange={() => setHref('https://committed.io/Logo.svg')}
+          label="Committed"
+        />
+        <Checkbox
+          checked={
             'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/cloud-upload-alt.svg' ===
             href
           }
-          color="primary"
-          mr={2}
-          onClick={() =>
+          variant="primary"
+          onCheckedChange={() =>
             setHref(
               'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/cloud-upload-alt.svg'
             )
           }
-        >
-          FontAwesome
-        </CheckToken>
-        <CheckToken
-          selected={null === href}
-          color="primary"
-          mr={2}
-          onClick={() => setHref(null)}
-        >
-          Unmounted
-        </CheckToken>
+          label="FontAwesome"
+        />
+        <Checkbox
+          checked={null === href}
+          variant="primary"
+          onCheckedChange={() => setHref(null)}
+          label="Unmounted"
+        />
       </Row>
-      <Column m={2} alignItems="center">
+      <Column gap>
         {href == null ? (
           `No child useFavicon retain: ${retain}`
         ) : (
@@ -115,7 +113,7 @@ Example.parameters = {
   docs: {
     description: {
       story:
-        'This example shows how the icon is restored on unmount by default',
+        'This example shows how the icon is restored on unmount by default (<a href="iframe.html?id=hooks-usefavicon--example&viewMode=story" target="_blank" rel="noopener">Popout</a>).',
     },
   },
 }
@@ -127,7 +125,7 @@ Retain.parameters = {
   docs: {
     description: {
       story:
-        'This example shows how the icon is retained on unmount if `retain` is declared in the options',
+        'This example shows how the icon is retained on unmount if `retain` is declared in the options  (<a href="iframe.html?id=hooks-usefavicon--retain&viewMode=story" target="_blank" rel="noopener">Popout</a>).',
     },
   },
 }

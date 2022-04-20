@@ -1,6 +1,6 @@
+import { Button, Column, Monospace, Row, Text } from '@committed/components'
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { Story, Meta } from '@storybook/react'
-import { Box, Button, Typography, Monospace } from '@committed/components'
 import { useDebug } from '.'
 import { useBoolean } from '../useBoolean/useBoolean'
 
@@ -29,61 +29,64 @@ export default {
   },
 } as Meta
 
-const Debugged: React.FC<{ token: boolean }> = (props) => {
-  const [flag, { toggle }] = useBoolean()
+const Debugged: React.FC<{ token: boolean; toggleToken: () => void }> = (
+  props
+) => {
+  const [flag, { toggle: toggleFlag }] = useBoolean()
   const state = { flag }
+  const { token, toggleToken } = props
   useDebug('Default story', props, state)
   return (
-    <>
-      <Typography>
-        Change will cause console log messages similar to:
-      </Typography>
+    <Column gap>
+      <Text>Change will cause console log messages similar to:</Text>
       <Monospace>
-        {`Default story updated: props ${JSON.stringify(
-          props
-        )} state ${JSON.stringify(state)}`}
+        {`Default story updated: props ${JSON.stringify({
+          token,
+        })} state ${JSON.stringify(state)}`}
       </Monospace>
-      <Box display="inline">
-        <Button mt={2} color="primary" onClick={toggle}>
+      <Row gap>
+        <Button variant="primary" onClick={toggleToken}>
+          Change props
+        </Button>
+        <Button variant="primary" onClick={toggleFlag}>
           Change State
         </Button>
-      </Box>
-    </>
+      </Row>
+    </Column>
   )
 }
 
-const Template: Story<UseDebugDocsProps> = ({}) => {
-  // const Debugged: React.FC<{ token: boolean }> = (props) => {
-  //   const [flag, { toggle }] = useBoolean()
+const Template: Story<UseDebugDocsProps> = (props) => {
+  // Shown inline so you can see it in the ShowCode
+  // const Debugged: React.FC<{ token: boolean; toggleToken: () => void }> = (
+  //   props
+  // ) => {
+  //   const [flag, { toggle: toggleFlag }] = useBoolean()
   //   const state = { flag }
+  //   const { token, toggleToken } = props
   //   useDebug('Default story', props, state)
   //   return (
-  //     <>
-  //       <Typography>Props:</Typography>
-  //       <Monospace>{JSON.stringify(props)}</Monospace>
-  //       <Typography>State:</Typography>
-  //       <Monospace>{JSON.stringify(state)}</Monospace>
-
-  //       <Box display="inline">
-  //         <Button m={2} color="primary" onClick={toggle}>
+  //     <Column gap>
+  //       <Text>Change will cause console log messages similar to:</Text>
+  //       <Monospace>
+  //         {`Default story updated: props ${JSON.stringify({
+  //           token,
+  //         })} state ${JSON.stringify(state)}`}
+  //       </Monospace>
+  //       <Row gap>
+  //         <Button variant="primary" onClick={toggleToken}>
+  //           Change props
+  //         </Button>
+  //         <Button variant="primary" onClick={toggleFlag}>
   //           Change State
   //         </Button>
-  //       </Box>
-  //     </>
+  //       </Row>
+  //     </Column>
   //   )
   // }
 
   const [token, { toggle }] = useBoolean()
-  return (
-    <>
-      <Debugged token={token} />
-      <Box display="inline">
-        <Button ml={2} mt={2} color="primary" onClick={toggle}>
-          Change Props
-        </Button>
-      </Box>
-    </>
-  )
+  return <Debugged token={token} toggleToken={toggle} />
 }
 
 export const Default = Template.bind({})

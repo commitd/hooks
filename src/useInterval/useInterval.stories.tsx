@@ -1,6 +1,6 @@
+import { Button, Paragraph } from '@committed/components'
+import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import { Story, Meta } from '@storybook/react'
-import { Typography, Button } from '@committed/components'
 import { useInterval } from '.'
 
 export interface UseIntervalDocsProps {
@@ -33,7 +33,7 @@ export default {
 const Template: Story<Omit<UseIntervalDocsProps, 'callback'>> = ({ delay }) => {
   const [count, setCount] = React.useState(0)
   useInterval(() => setCount(count + 1), delay)
-  return <Typography>{count}</Typography>
+  return <Paragraph>{count}</Paragraph>
 }
 
 export const Default = Template.bind({})
@@ -45,7 +45,7 @@ export const Pause = () => {
   useInterval(() => setCount(count + 1), delay)
   return (
     <>
-      <Typography>{count}</Typography>
+      <Paragraph>{count}</Paragraph>
       <Button
         color="primary"
         onClick={() => (delay === null ? setDelay(100) : setDelay(null))}
