@@ -93,7 +93,7 @@
     "@babel/core": "^7.12.3",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "@committed/components": "^7.0.1",
+    "@committed/components": "^7.0.2",
     "@fontsource/dosis": "^4.5.7",
     "@fontsource/inter": "^4.5.7",
     "@size-limit/preset-small-lib": "^4.6.2",
