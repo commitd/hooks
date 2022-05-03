@@ -2170,10 +2170,10 @@
   dependencies:
     chalk "^4.0.0"
 
-"@committed/components@^7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@committed/components/-/components-7.0.1.tgz#b0ff39f7c6a7dc364507a6c29c21a54cf0823e46"
-  integrity sha512-rMw2oCHqtA6mo41S73U+sR7o/bMYhKVw69F37dWnN/jhpKRP1evUgVbnGFbNLjwE0xhwY76JDfSRg3fxgQwAQg==
+"@committed/components@^7.0.2":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@committed/components/-/components-7.0.2.tgz#cb8ffb2e9b2f3d19a9ed5363cabeef63bfcee114"
+  integrity sha512-JcgAPXm88UnIAXCS57LkLKiRaEzCEhv8ctYiTNXRH9PAq5BH8ckDWk10Gm3RqK+lgixWr3dSroojLKg0za/CAw==
   dependencies:
     "@committed/hooks" "^0.5.0"
     "@mdi/js" "^6.6.96"

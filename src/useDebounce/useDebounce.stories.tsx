@@ -87,10 +87,10 @@ export const Usage = () => {
   const { data: countries } = useSwr<
     Array<{ name: string; alpha3Code: string }>
   >(
-    ['https://restcountries.eu/rest/v2/name/', debouncedName],
+    ['https://restcountries.com/v2/name/', debouncedName],
     (url: string, name: string) => {
       setCalls(calls + 1)
-      return fetch(`${url}${name}`).then((res) => res.json())
+      return fetch(`${url}${name.toLowerCase()}`).then((res) => res.json())
     },
     { refreshInterval: 0, shouldRetryOnError: false }
   )
@@ -154,10 +154,10 @@ export const Flush = () => {
   const { data: countries } = useSwr<
     Array<{ name: string; alpha3Code: string; capital: string }>
   >(
-    ['https://restcountries.eu/rest/v2/capital/', debouncedName],
+    ['https://restcountries.com/v2/capital/', debouncedName],
     (url: string, name: string) => {
       setCalls(calls + 1)
-      return fetch(`${url}${name}`).then((res) => res.json())
+      return fetch(`${url}${name.toLowerCase()}`).then((res) => res.json())
     },
     { refreshInterval: 0, shouldRetryOnError: false }
   )
