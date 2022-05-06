@@ -23,7 +23,7 @@ export function usePoll(
   }, [callback])
 
   useEffect(() => {
-    let id: NodeJS.Timeout | null = null
+    let id: ReturnType<typeof setTimeout> | null = null
 
     function call() {
       const current = savedCallback.current
