@@ -6,7 +6,10 @@
   "license": "MIT",
   "private": false,
   "repository": "git://github.com/commitd/hooks.git",
-  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "main": "dist/hooks.js",
+  "umd:main": "dist/hooks.umd.js",
+  "module": "dist/hooks.esm.js",
   "typings": "dist/index.d.ts",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -20,8 +23,8 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "commit": "cz",
-    "start": "tsdx watch",
-    "build": "tsdx build",
+    "start": "microbundle watch",
+    "build": "yarn clean ; microbundle",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "size": "size-limit",
@@ -32,7 +35,7 @@
     "format:check": "prettier --check '**/{src,test,stories}/**/{*.js,*.ts,*.tsx,*.json,*.md,*.mdx}'",
     "deploy-storybook": "storybook-to-ghpages",
     "generate": "plop --plopfile ./generators/plopfile.js",
-    "prepare": "husky install && tsdx build",
+    "postinstall": "husky install",
     "semantic-release": "semantic-release"
   },
   "peerDependencies": {
@@ -48,10 +51,9 @@
     "semi": false,
     "singleQuote": true
   },
-  "module": "dist/hooks.esm.js",
   "size-limit": [
     {
-      "path": "dist/hooks.cjs.production.min.js",
+      "path": "dist/hooks.js",
       "limit": "10 KB"
     },
     {
@@ -119,6 +121,7 @@
     "eslint-plugin-storybook": "^0.5.10",
     "husky": "^7.0.4",
     "jest-sonar-reporter": "^2.0.0",
+    "microbundle": "^0.15.0",
     "plop": "^2.7.4",
     "prettier": "^2.1.2",
     "prettier-plugin-organize-imports": "^2.3.4",
@@ -132,8 +135,8 @@
     "storybook-dark-mode": "^1.0.9",
     "swr": "^0.3.8",
     "tsdx": "^0.14.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4"
   },
   "dependencies": {}
 }
