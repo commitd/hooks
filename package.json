@@ -35,7 +35,7 @@
     "format:check": "prettier --check '**/{src,test,stories}/**/{*.js,*.ts,*.tsx,*.json,*.md,*.mdx}'",
     "deploy-storybook": "storybook-to-ghpages",
     "generate": "plop --plopfile ./generators/plopfile.js",
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "semantic-release": "semantic-release"
   },
   "peerDependencies": {
