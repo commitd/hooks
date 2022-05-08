@@ -1,4 +1,5 @@
 export * from './useBoolean'
+export * from './useClipboard'
 export * from './useControllableState'
 export * from './useDebounce'
 export * from './useDebug'
