@@ -13,7 +13,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=commitd_hooks&metric=coverage)](https://sonarcloud.io/dashboard?id=commitd_hooks)
 ![GitHub repo size](https://img.shields.io/github/repo-size/commitd/hooks)
 
-For documentation see <https://https://hooks.committed.software>
+For documentation see <https://hooks.committed.software>
 
 ## Install
 

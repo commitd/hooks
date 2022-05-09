@@ -1,7 +1,16 @@
 import { act, renderHook } from '@testing-library/react-hooks'
 import { useDebounce } from '.'
 
-jest.useFakeTimers()
+beforeEach(() => {
+  jest.useFakeTimers()
+})
+
+afterEach(() => {
+  act(() => {
+    jest.runOnlyPendingTimers()
+  })
+  jest.useRealTimers()
+})
 
 test('Should set value to the initial immediately`', () => {
   const { result } = renderHook(({ value }) => useDebounce(value, 1000), {
