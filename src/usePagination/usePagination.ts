@@ -50,11 +50,10 @@ export function usePagination({
     endIndex,
     isNextDisabled,
     isPreviousDisabled,
-  } = useMemo(() => getDerivedData(totalItems, pageSize, page), [
-    page,
-    pageSize,
-    totalItems,
-  ])
+  } = useMemo(
+    () => getDerivedData(totalItems, pageSize, page),
+    [page, pageSize, totalItems]
+  )
 
   const setTotalItems = useCallback((newTotalItems: number) => {
     setTotalItemsInternal(Math.max(0, newTotalItems))

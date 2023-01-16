@@ -7,9 +7,7 @@ import { useState } from 'react'
  *
  * @param {number | undefined} timeout set to change the default timeout for notification of copy
  */
-export function useClipboard(
-  timeout = 2000
-): {
+export function useClipboard(timeout = 2000): {
   copy: (valueToCopy: string) => Promise<void>
   reset: () => void
   error: Error | undefined
