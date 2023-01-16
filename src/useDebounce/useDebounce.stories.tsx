@@ -88,7 +88,7 @@ export const Usage = () => {
     Array<{ name: string; alpha3Code: string }>
   >(
     ['https://restcountries.com/v2/name/', debouncedName],
-    (url: string, name: string) => {
+    ([url, name]) => {
       setCalls(calls + 1)
       return fetch(`${url}${name.toLowerCase()}`).then((res) => res.json())
     },
@@ -155,7 +155,7 @@ export const Flush = () => {
     Array<{ name: string; alpha3Code: string; capital: string }>
   >(
     ['https://restcountries.com/v2/capital/', debouncedName],
-    (url: string, name: string) => {
+    ([url, name]) => {
       setCalls(calls + 1)
       return fetch(`${url}${name.toLowerCase()}`).then((res) => res.json())
     },
