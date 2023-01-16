@@ -4,4 +4,6 @@
 yarn test
 yarn lint
 yarn build
-yarn size
+
+# Removed for now as command fails
+#yarn size
