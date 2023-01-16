@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react'
+import { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
 
 /**
  * Serialize the value to a string
@@ -39,7 +39,7 @@ export function useLocalState<T>(
     deserialize: Deserializer<T>
   } = { serialize: JSON.stringify, deserialize: JSON.parse }
 ): [T, Dispatch<T>, () => void] {
-  const [state, setState] = React.useState<T>(() => {
+  const [state, setState] = useState<T>(() => {
     const valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage != null) {
       try {
@@ -55,9 +55,9 @@ export function useLocalState<T>(
     }
   })
 
-  const prevKeyRef = React.useRef(key)
+  const prevKeyRef = useRef(key)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const prevKey = prevKeyRef.current
     if (prevKey !== key) {
       window.localStorage.removeItem(prevKey)
@@ -70,7 +70,7 @@ export function useLocalState<T>(
     }
   }, [key, state, serialize])
 
-  const clear = React.useCallback(() => {
+  const clear = useCallback(() => {
     window.localStorage.removeItem(key)
   }, [key])
 

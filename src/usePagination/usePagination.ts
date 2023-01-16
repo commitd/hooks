@@ -50,10 +50,11 @@ export function usePagination({
     endIndex,
     isNextDisabled,
     isPreviousDisabled,
-  } = useMemo(
-    () => getDerivedData(totalItems, pageSize, page),
-    [page, pageSize, totalItems]
-  )
+  } = useMemo(() => getDerivedData(totalItems, pageSize, page), [
+    page,
+    pageSize,
+    totalItems,
+  ])
 
   const setTotalItems = useCallback((newTotalItems: number) => {
     setTotalItemsInternal(Math.max(0, newTotalItems))
@@ -67,16 +68,16 @@ export function usePagination({
     (newPage: number) => {
       setPageInternal(Math.max(1, Math.min(newPage, totalPages)))
     },
-    [page, totalPages]
+    [totalPages]
   )
 
   const setNextPage = useCallback(() => {
     setPage(page + 1)
-  }, [page])
+  }, [page, setPage])
 
   const setPreviousPage = useCallback(() => {
     setPage(page - 1)
-  }, [page])
+  }, [page, setPage])
 
   useEffect(() => {
     setPageInternal((page) => Math.max(1, Math.min(page, totalPages)))
