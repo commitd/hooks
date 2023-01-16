@@ -39,9 +39,7 @@ export function useTrackedState<T = undefined>(): [
  *
  * @param initialState starting state or function to provide starting state
  */
-export function useTrackedState<T>(
-  initialState: T | (() => T)
-): [
+export function useTrackedState<T>(initialState: T | (() => T)): [
   T,
   React.Dispatch<React.SetStateAction<T>>,
   {
@@ -58,9 +56,7 @@ export function useTrackedState<T>(
  *
  * @param initialState (optional) starting state or function to provide starting state
  */
-export function useTrackedState<T>(
-  initialState?: T | (() => T)
-): [
+export function useTrackedState<T>(initialState?: T | (() => T)): [
   T,
   React.Dispatch<React.SetStateAction<T>>,
   {

@@ -9,14 +9,14 @@ interface Handler {
 test('Should add listener, call handler, and remove listener, all on ref node', () => {
   const listeners: Record<string, Handler> = {}
 
-  const current = ({
+  const current = {
     addEventListener: jest.fn((event: string, handler: Handler) => {
       listeners[event] = handler
     }),
     removeEventListener: jest.fn((event: string, _handler: Handler) => {
       delete listeners[event]
     }),
-  } as unknown) as HTMLDivElement
+  } as unknown as HTMLDivElement
 
   const ref = {
     current,
@@ -27,7 +27,7 @@ test('Should add listener, call handler, and remove listener, all on ref node', 
 
   expect(listeners.click).toBeTruthy()
 
-  const event = ({} as unknown) as Event
+  const event = {} as unknown as Event
   expect(handler).toHaveBeenCalledTimes(0)
   ;(listeners.click as EventListener)(event)
 
@@ -70,7 +70,7 @@ test('Should add listener, call handler, and remove listener, all on window', ()
 
   expect(listeners.mouseout).toBeTruthy()
 
-  const event = ({} as unknown) as Event
+  const event = {} as unknown as Event
   expect(handler).toHaveBeenCalledTimes(0)
   ;(listeners.mouseout as EventListener)(event)
 
@@ -85,14 +85,14 @@ test('Should add listener, call handler, and remove listener, all on window', ()
 test('Should cope is handler is null', () => {
   const listeners: Record<string, Handler> = {}
 
-  const current = ({
+  const current = {
     addEventListener: jest.fn((event: string, handler: Handler) => {
       listeners[event] = handler
     }),
     removeEventListener: jest.fn((event: string, _handler: Handler) => {
       delete listeners[event]
     }),
-  } as unknown) as HTMLDivElement
+  } as unknown as HTMLDivElement
 
   const ref = {
     current,
@@ -101,7 +101,7 @@ test('Should cope is handler is null', () => {
 
   expect(listeners.custom).toBeTruthy()
 
-  const event = ({} as unknown) as Event
+  const event = {} as unknown as Event
 
   ;(listeners.custom as EventListener)(event)
 

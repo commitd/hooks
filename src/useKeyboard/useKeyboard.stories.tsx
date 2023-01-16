@@ -245,10 +245,8 @@ Repeat.parameters = {
 export const KeyOption: Story = () => {
   const [ignoreKey, { toggle }] = useBoolean(false)
   const [i, { setTrue: setITrue, setFalse: setIFalse }] = useBoolean(false)
-  const [
-    ctrlalti,
-    { setTrue: setCtrlaltiTrue, setFalse: setCtrlaltiFalse },
-  ] = useBoolean(false)
+  const [ctrlalti, { setTrue: setCtrlaltiTrue, setFalse: setCtrlaltiFalse }] =
+    useBoolean(false)
 
   useKeyboard('I', setITrue, { ignoreKey })
   useKeyboard('ctrl+alt+i', setCtrlaltiTrue, { ignoreKey })

@@ -8,9 +8,7 @@ import React, { useState } from 'react'
  * Use with caution, attaching to buttons can cause unintended consequences from double clicks.
  * @params startState (optional) starting value
  */
-export function useBoolean(
-  startState = false
-): [
+export function useBoolean(startState = false): [
   boolean,
   {
     toggle: () => void

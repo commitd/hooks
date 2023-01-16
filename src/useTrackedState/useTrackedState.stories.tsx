@@ -27,9 +27,8 @@ export default {
 const Template: Story<UseTrackedStateDocsProps<number>> = ({
   initialState,
 }) => {
-  const [value, setValue, { undo, redo, canUndo, canRedo }] = useTrackedState(
-    initialState
-  )
+  const [value, setValue, { undo, redo, canUndo, canRedo }] =
+    useTrackedState(initialState)
   return (
     <Column gap>
       <Input label="Value" readOnly value={value} />
