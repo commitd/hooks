@@ -77,7 +77,7 @@ test('Should change to new handler without resetting the timer', () => {
 
 test('Should not error if handler null', () => {
   renderHook(({ handler }) => usePoll(handler, 1000), {
-    initialProps: { handler: (null as unknown) as () => void },
+    initialProps: { handler: null as unknown as () => void },
   })
 
   jest.advanceTimersByTime(2000)

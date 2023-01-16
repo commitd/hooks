@@ -30,7 +30,7 @@ test('useMergedRefs should not fail if invalid values', () => {
   const refAsInvalid = { invalid: undefined }
 
   const { result: first } = renderHook(() =>
-    useMergedRefs(null, (refAsInvalid as unknown) as React.Ref<string>)
+    useMergedRefs(null, refAsInvalid as unknown as React.Ref<string>)
   )
   // Would be valid if null here
   expect(first.current).not.toBeNull()

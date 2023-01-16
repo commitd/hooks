@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 /**
  * Utility hook for boolean state
@@ -8,9 +8,7 @@ import React, { useState } from 'react'
  * Use with caution, attaching to buttons can cause unintended consequences from double clicks.
  * @params startState (optional) starting value
  */
-export function useBoolean(
-  startState = false
-): [
+export function useBoolean(startState = false): [
   boolean,
   {
     toggle: () => void
@@ -20,7 +18,7 @@ export function useBoolean(
 ] {
   const [value, setValue] = useState(startState)
 
-  const functions = React.useMemo(
+  const functions = useMemo(
     () => ({
       toggle: (): void => setValue((state) => !state),
       setTrue: (): void => setValue(true),

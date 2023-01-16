@@ -80,7 +80,6 @@ export function useFavicon(href: string, options: FaviconOptions = {}): void {
   useLayoutEffect(() => {
     const imageType = href.toLowerCase().split('.').pop()
     if (isImageType(imageType)) {
-      // eslint-disable-next-line security/detect-object-injection
       const type = ImageTypes[imageType]
       setFavIcon(document, { type, href })
     } else {
