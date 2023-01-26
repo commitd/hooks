@@ -9,7 +9,13 @@ import { useBoolean } from '../useBoolean'
  */
 export function useModal(
   startState = false
-): [visible: boolean, show: () => void, hide: () => void] {
-  const [visible, { setTrue: show, setFalse: hide }] = useBoolean(startState)
-  return [visible, show, hide]
+): [
+  visible: boolean,
+  show: () => void,
+  hide: () => void,
+  set: React.Dispatch<React.SetStateAction<boolean>>
+] {
+  const [visible, { setTrue: show, setFalse: hide, setValue: set }] =
+    useBoolean(startState)
+  return [visible, show, hide, set]
 }

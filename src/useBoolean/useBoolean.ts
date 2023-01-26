@@ -14,6 +14,7 @@ export function useBoolean(startState = false): [
     toggle: () => void
     setTrue: () => void
     setFalse: () => void
+    setValue: React.Dispatch<React.SetStateAction<boolean>>
   }
 ] {
   const [value, setValue] = useState(startState)
@@ -23,6 +24,7 @@ export function useBoolean(startState = false): [
       toggle: (): void => setValue((state) => !state),
       setTrue: (): void => setValue(true),
       setFalse: (): void => setValue(false),
+      setValue,
     }),
     [setValue]
   )
