@@ -1,20 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-/**
- * Utility hook for handling pagination state
- *
- * returns the current page and functions to manipulate.
- *
- */
-export function usePagination({
-  totalItems: startTotalItems = 0,
-  page: startPage = 1,
-  pageSize: startPageSize = 20,
-}: Partial<{
-  totalItems: number
-  page: number
-  pageSize: number
-}> = {}): {
+export interface PaginationData {
   /** The current page */
   page: number
   /** The total number of pages */
@@ -29,6 +15,26 @@ export function usePagination({
   isPreviousDisabled: boolean
   /** The page size */
   pageSize: number
+}
+
+/**
+ * Utility hook for handling pagination state
+ *
+ * returns the current page and functions to manipulate.
+ *
+ */
+export function usePagination<T = void>({
+  totalItems: startTotalItems = 0,
+  pageSize: startPageSize = 20,
+  page: startPage = 1,
+  queryCallback = () => undefined as T,
+}: Partial<{
+  totalItems: number
+  pageSize: number
+  page: number
+  queryCallback: (data: PaginationData) => T
+}> = {}): PaginationData & {
+  query: T
   /** Set the page */
   setPage: (page: number) => void
   /** Move to the next page */
@@ -79,8 +85,41 @@ export function usePagination({
   }, [page, setPage])
 
   useEffect(() => {
+    return () => {
+      setTotalItems(startTotalItems)
+    }
+  }, [startTotalItems, setTotalItems])
+
+  useEffect(() => {
+    return () => {
+      setPageSize(startPageSize)
+    }
+  }, [startPageSize, setPageSize])
+
+  useEffect(() => {
     setPageInternal((page) => Math.max(1, Math.min(page, totalPages)))
   }, [totalPages])
+
+  const query = useMemo(() => {
+    return queryCallback({
+      page,
+      pageSize,
+      totalPages,
+      startIndex,
+      endIndex,
+      isNextDisabled,
+      isPreviousDisabled,
+    })
+  }, [
+    queryCallback,
+    page,
+    pageSize,
+    totalPages,
+    startIndex,
+    endIndex,
+    isNextDisabled,
+    isPreviousDisabled,
+  ])
 
   return {
     page,
@@ -90,6 +129,7 @@ export function usePagination({
     endIndex,
     isNextDisabled,
     isPreviousDisabled,
+    query,
     setPage,
     setNextPage,
     setPreviousPage,
@@ -97,6 +137,7 @@ export function usePagination({
     setTotalItems,
   }
 }
+
 function getDerivedData(totalItems: number, pageSize: number, page: number) {
   const totalPages = Math.ceil(totalItems / pageSize)
   const startIndex = pageSize * (page - 1)

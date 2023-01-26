@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks'
-import { usePagination } from './usePagination'
+import { PaginationData, usePagination } from './usePagination'
 
 test('should start in given state', () => {
   const { result } = renderHook(() => usePagination())
@@ -131,4 +131,36 @@ test('can set total items', () => {
 
   expect(result.current.page).toBe(10)
   expect(result.current.totalPages).toBe(20)
+})
+
+test('can update query', () => {
+  const queryCallback = ({ pageSize, startIndex }: PaginationData) => ({
+    take: pageSize,
+    skip: startIndex,
+  })
+  const { result, rerender } = renderHook(() =>
+    usePagination({
+      totalItems: 100,
+      pageSize: 10,
+      queryCallback,
+    })
+  )
+
+  expect(result.current.query).toStrictEqual({ take: 10, skip: 0 })
+
+  act(() => {
+    result.current.setPage(3)
+  })
+
+  const previous = result.current.query
+  expect(previous).toStrictEqual({ take: 10, skip: 20 })
+
+  // check rerender does not change the query
+  rerender({
+    totalItems: 100,
+    pageSize: 10,
+    queryCallback,
+  })
+
+  expect(result.current.query).toBe(previous)
 })

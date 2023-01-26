@@ -10,17 +10,19 @@ import {
   Slider,
 } from '@committed/components'
 import { Meta, Story } from '@storybook/react'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import useSwr from 'swr'
-import { usePagination } from '.'
+import { PaginationData, usePagination } from '.'
 
-export interface UsePaginationDocsProps {
+export interface UsePaginationDocsProps<T = void> {
   /** The total number of items, if know when initializing, use setTotalItems if not */
-  totalItems: number
+  totalItems?: number
   /** The page to start on */
-  startPage: number
+  startPage?: number
   /** The size of each page */
-  pageSize: number
+  pageSize?: number
+  /** A function called with the pagination data on data change to prepare the returned `query` object, this is memoed for you */
+  queryCallback?: (data: PaginationData) => T
 }
 
 /**
@@ -120,17 +122,26 @@ type User = {
 }
 
 export const ServerSide: Story = () => {
-  const { page, pageSize, totalPages, setPage, setTotalItems, setPageSize } =
-    usePagination()
+  const {
+    page,
+    pageSize,
+    totalPages,
+    query,
+    setPage,
+    setTotalItems,
+    setPageSize,
+  } = usePagination({
+    queryCallback: ({ page, pageSize }) => `page=${page}&per_page=${pageSize}`,
+  })
 
   const { data } = useSwr(
-    ['https://gorest.co.in/public/v2/users', page, pageSize],
-    async ([url, page, pageSize]) => {
-      const res = await fetch(`${url}?page=${page - 1}&per_page=${pageSize}`)
+    ['https://gorest.co.in/public/v2/users', query],
+    async ([url, query]) => {
+      const res = await fetch(`${url}?${query}`)
 
       const users = (await res.json()) as User[]
       const totalItems = Number(res.headers.get('x-pagination-total'))
-
+      setTotalItems(totalItems)
       return {
         users,
         totalItems,
@@ -138,16 +149,6 @@ export const ServerSide: Story = () => {
     },
     { refreshInterval: 0, shouldRetryOnError: false }
   )
-
-  const users = useMemo(() => {
-    return data?.users ?? []
-  }, [data])
-
-  useEffect(() => {
-    if (data?.totalItems) {
-      setTotalItems(data.totalItems)
-    }
-  }, [data])
 
   return (
     <Column css={{ gap: '$3' }}>
@@ -158,7 +159,7 @@ export const ServerSide: Story = () => {
         onValueChange={(value) => setPageSize(value[0])}
       />
       <div>
-        {users.map((item) => (
+        {(data?.users ?? []).map((item) => (
           <div>{item.name}</div>
         ))}
       </div>
