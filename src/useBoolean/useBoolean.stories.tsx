@@ -14,6 +14,8 @@ export interface UseBooleanDocsProps {
  * returns the value, an object containing function for toggle, setTrue and setFalse.
  *
  * __Use `toggle` with caution__, attaching to buttons can cause unintended consequences from double clicks.
+ * Also, re-exposes the `setValue` function in case required.
+ *
  */
 export const UseBooleanDocs: React.FC<UseBooleanDocsProps> = (
   _props: UseBooleanDocsProps

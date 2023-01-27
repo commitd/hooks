@@ -12,6 +12,7 @@ export interface UseModalDocsProps {
  * Utility hook for modal state
  *
  * returns the visibility of the modal and functions to `show` and `hide`.
+ * Also, re-exposes the `set` function in case required.
  *
  */
 export const UseModalDocs: React.FC<UseModalDocsProps> = (
