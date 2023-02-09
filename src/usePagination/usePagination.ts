@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 export interface PaginationData {
   /** The current page */
@@ -100,8 +100,16 @@ export function usePagination<T = void>({
     setPageInternal((page) => Math.max(1, Math.min(page, totalPages)))
   }, [totalPages])
 
+  const savedCallback = useRef<(data: PaginationData) => T>(queryCallback)
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = queryCallback
+  }, [queryCallback])
+
   const query = useMemo(() => {
-    return queryCallback({
+    const callback = savedCallback.current
+    return callback({
       page,
       pageSize,
       totalPages,
@@ -111,7 +119,6 @@ export function usePagination<T = void>({
       isPreviousDisabled,
     })
   }, [
-    queryCallback,
     page,
     pageSize,
     totalPages,
