@@ -1,4 +1,11 @@
-import { Dispatch, useCallback, useEffect, useRef, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 /**
  * Serialize the value to a string
@@ -38,7 +45,7 @@ export function useLocalState<T>(
     serialize: Serializer<T>
     deserialize: Deserializer<T>
   } = { serialize: JSON.stringify, deserialize: JSON.parse }
-): [T, Dispatch<T>, () => void] {
+): [T, Dispatch<SetStateAction<T>>, () => void] {
   const [state, setState] = useState<T>(() => {
     const valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage != null) {
