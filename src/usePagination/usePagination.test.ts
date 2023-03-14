@@ -23,24 +23,26 @@ test('should start in given state', () => {
 
 test('should start using the provided start state', () => {
   const { result } = renderHook(() =>
-    usePagination({ page: 5, totalItems: 100, pageSize: 10 })
+    usePagination({ totalItems: 100, pageSize: 10 })
   )
   const {
     page,
     totalPages,
+    totalItems,
     startIndex,
     endIndex,
     pageSize,
     isPreviousDisabled,
     isNextDisabled,
   } = result.current
-  expect(page).toBe(5)
-  expect(totalPages).toBe(10)
-  expect(startIndex).toBe(40)
-  expect(endIndex).toBe(50)
+  expect(page).toBe(1)
   expect(pageSize).toBe(10)
+  expect(totalItems).toBe(100)
+  expect(totalPages).toBe(10)
+  expect(startIndex).toBe(0)
+  expect(endIndex).toBe(10)
   expect(isNextDisabled).toBe(false)
-  expect(isPreviousDisabled).toBe(false)
+  expect(isPreviousDisabled).toBe(true)
 })
 
 test('can set page', () => {
@@ -75,8 +77,14 @@ test('can set page', () => {
 
 test('can not set page too high', () => {
   const { result } = renderHook(() =>
-    usePagination({ page: 10, totalItems: 100, pageSize: 10 })
+    usePagination({ totalItems: 100, pageSize: 10 })
   )
+  expect(result.current.page).toBe(1)
+
+  act(() => {
+    result.current.setPage(10)
+  })
+
   expect(result.current.page).toBe(10)
 
   act(() => {
@@ -92,7 +100,7 @@ test('can not set page too high', () => {
 
 test('can not set page too low', () => {
   const { result } = renderHook(() =>
-    usePagination({ page: 1, totalItems: 100, pageSize: 10 })
+    usePagination({ totalItems: 100, pageSize: 10 })
   )
   expect(result.current.page).toBe(1)
 
@@ -109,27 +117,27 @@ test('can not set page too low', () => {
 
 test('can set page size', () => {
   const { result } = renderHook(() =>
-    usePagination({ page: 10, totalItems: 100, pageSize: 10 })
+    usePagination({ totalItems: 100, pageSize: 10 })
   )
 
   act(() => {
     result.current.setPageSize(20)
   })
 
-  expect(result.current.page).toBe(5)
+  expect(result.current.page).toBe(1)
   expect(result.current.pageSize).toBe(20)
 })
 
 test('can set total items', () => {
   const { result } = renderHook(() =>
-    usePagination({ page: 10, totalItems: 100, pageSize: 10 })
+    usePagination({ totalItems: 100, pageSize: 10 })
   )
 
   act(() => {
     result.current.setTotalItems(200)
   })
 
-  expect(result.current.page).toBe(10)
+  expect(result.current.page).toBe(1)
   expect(result.current.totalPages).toBe(20)
 })
 
@@ -163,4 +171,25 @@ test('can update query', () => {
   })
 
   expect(result.current.query).toBe(previous)
+})
+
+test('can update total items', async () => {
+  const { result, rerender } = renderHook(usePagination, {
+    initialProps: { totalItems: 100, pageSize: 10 },
+  })
+  act(() => {
+    result.current.setPage(2)
+  })
+
+  expect(result.current.page).toBe(2)
+  expect(result.current.totalPages).toBe(10)
+  expect(result.current.startIndex).toBe(10)
+  expect(result.current.endIndex).toBe(20)
+
+  act(() => rerender({ totalItems: 200, pageSize: 15 }))
+
+  expect(result.current.page).toBe(2)
+  expect(result.current.totalPages).toBe(14)
+  expect(result.current.startIndex).toBe(15)
+  expect(result.current.endIndex).toBe(30)
 })

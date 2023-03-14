@@ -10,7 +10,7 @@ import {
   Slider,
 } from '@committed/components'
 import { Meta, Story } from '@storybook/react'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import useSwr from 'swr'
 import { PaginationData, usePagination } from '.'
 
@@ -84,7 +84,7 @@ const Template: Story<UsePaginationDocsProps> = (args) => {
 }
 
 export const Default = Template.bind({})
-Default.args = { totalItems: 100, startPage: 1, pageSize: 20 }
+Default.args = { totalItems: 100, pageSize: 20 }
 
 export const ClientSide: Story = () => {
   const items = Array.from({ length: 100 }, (v, i) => i)
@@ -97,7 +97,7 @@ export const ClientSide: Story = () => {
     <>
       <Row css={{ gap: '$2', mb: '$3' }}>
         {items.slice(startIndex, endIndex).map((item) => (
-          <div>{item}</div>
+          <div key={`${item}`}>{item}</div>
         ))}
       </Row>
       <Pagination page={page} onPageChange={setPage} count={totalPages} />
@@ -160,7 +160,7 @@ export const ServerSide: Story = () => {
       />
       <div>
         {(data?.users ?? []).map((item) => (
-          <div>{item.name}</div>
+          <div key={`${item.name}`}>{item.name}</div>
         ))}
       </div>
     </Column>
@@ -214,6 +214,58 @@ MakeYourOwn.parameters = {
     description: {
       story:
         'The data can be used to manage a `Pagination` component or you can create your own.',
+    },
+  },
+}
+
+const ChildWithPagination = ({ items, pageSize }) => {
+  const { page, totalPages, startIndex, endIndex, setPage } = usePagination({
+    totalItems: items.length,
+    pageSize,
+  })
+
+  return (
+    <>
+      <Row css={{ gap: '$2', mb: '$3' }}>
+        {items.slice(startIndex, endIndex).map((item) => (
+          <div key={`${item}`}>{item}</div>
+        ))}
+      </Row>
+      <Pagination page={page} onPageChange={setPage} count={totalPages} />
+    </>
+  )
+}
+
+export const PropChangeTest: Story = () => {
+  const [totalItems, setTotalItems] = useState(100)
+  const [pageSize, setPageSize] = useState(10)
+
+  const items = useMemo(
+    () => Array.from({ length: totalItems }, (v, i) => i),
+    [totalItems]
+  )
+
+  return (
+    <>
+      <Slider
+        labelFunction={(value) => `Items ${value}`}
+        value={[totalItems]}
+        onValueChange={(value) => setTotalItems(value[0])}
+      />
+      <Slider
+        labelFunction={(value) => `Page size ${value}`}
+        value={[pageSize]}
+        onValueChange={(value) => setPageSize(value[0])}
+      />
+      <ChildWithPagination items={items} pageSize={pageSize} />
+    </>
+  )
+}
+PropChangeTest.parameters = {
+  docs: {
+    description: {
+      story:
+        'A test story to check the values correctly update when the component props change.',
     },
   },
 }

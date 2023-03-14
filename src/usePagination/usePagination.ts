@@ -15,6 +15,13 @@ export interface PaginationData {
   isPreviousDisabled: boolean
   /** The page size */
   pageSize: number
+  /** The total items */
+  totalItems: number
+}
+
+const defaultOptions = {
+  totalItems: 0,
+  pageSize: 20,
 }
 
 /**
@@ -24,14 +31,12 @@ export interface PaginationData {
  *
  */
 export function usePagination<T = void>({
-  totalItems: startTotalItems = 0,
-  pageSize: startPageSize = 20,
-  page: startPage = 1,
-  queryCallback = () => undefined as T,
+  queryCallback,
+  totalItems: propTotalItems = defaultOptions.totalItems,
+  pageSize: propPageSize = defaultOptions.pageSize,
 }: Partial<{
   totalItems: number
   pageSize: number
-  page: number
   queryCallback: (data: PaginationData) => T
 }> = {}): PaginationData & {
   query: T
@@ -46,9 +51,55 @@ export function usePagination<T = void>({
   /** set the number of items */
   setTotalItems: (totalItemsSize: number) => void
 } {
-  const [totalItems, setTotalItemsInternal] = useState(startTotalItems)
-  const [pageSize, setPageSizeInternal] = useState(Math.max(startPageSize, 1))
-  const [page, setPageInternal] = useState(Math.max(startPage, 1))
+  const [page, setPageInternal] = useState(1)
+
+  const [data, setDataInternal] = useState({
+    totalItems: Math.max(propTotalItems, 0),
+    pageSize: Math.max(propPageSize, 1),
+  })
+
+  const setData = useCallback(
+    (
+      newData: Partial<{
+        totalItems: number
+        pageSize: number
+      }>
+    ) => {
+      setDataInternal((current) => ({
+        pageSize: Math.max(1, newData.pageSize ?? current.pageSize),
+        totalItems: Math.max(0, newData.totalItems ?? current.totalItems),
+      }))
+    },
+    [setDataInternal]
+  )
+  const setTotalItems = useCallback(
+    (totalItems: number) => {
+      setData({ totalItems })
+    },
+    [setData]
+  )
+
+  const setPageSize = useCallback(
+    (pageSize: number) => {
+      setData({ pageSize })
+    },
+    [setData]
+  )
+
+  const savedCallback = useRef<(data: PaginationData) => T>(
+    queryCallback ?? (() => undefined as T)
+  )
+
+  useEffect(() => {
+    setData({
+      totalItems: propTotalItems,
+      pageSize: propPageSize,
+    })
+  }, [propTotalItems, propPageSize, setData])
+
+  useEffect(() => {
+    savedCallback.current = queryCallback ?? (() => undefined as T)
+  }, [queryCallback])
 
   const {
     totalPages,
@@ -57,17 +108,9 @@ export function usePagination<T = void>({
     isNextDisabled,
     isPreviousDisabled,
   } = useMemo(
-    () => getDerivedData(totalItems, pageSize, page),
-    [page, pageSize, totalItems]
+    () => getDerivedData(data.totalItems, data.pageSize, page),
+    [page, data]
   )
-
-  const setTotalItems = useCallback((newTotalItems: number) => {
-    setTotalItemsInternal(Math.max(0, newTotalItems))
-  }, [])
-
-  const setPageSize = useCallback((newPageSize: number) => {
-    setPageSizeInternal(Math.max(1, newPageSize))
-  }, [])
 
   const setPage = useCallback(
     (newPage: number) => {
@@ -85,33 +128,14 @@ export function usePagination<T = void>({
   }, [page, setPage])
 
   useEffect(() => {
-    return () => {
-      setTotalItems(startTotalItems)
-    }
-  }, [startTotalItems, setTotalItems])
-
-  useEffect(() => {
-    return () => {
-      setPageSize(startPageSize)
-    }
-  }, [startPageSize, setPageSize])
-
-  useEffect(() => {
     setPageInternal((page) => Math.max(1, Math.min(page, totalPages)))
   }, [totalPages])
-
-  const savedCallback = useRef<(data: PaginationData) => T>(queryCallback)
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = queryCallback
-  }, [queryCallback])
 
   const query = useMemo(() => {
     const callback = savedCallback.current
     return callback({
       page,
-      pageSize,
+      ...data,
       totalPages,
       startIndex,
       endIndex,
@@ -120,7 +144,7 @@ export function usePagination<T = void>({
     })
   }, [
     page,
-    pageSize,
+    data,
     totalPages,
     startIndex,
     endIndex,
@@ -130,7 +154,8 @@ export function usePagination<T = void>({
 
   return {
     page,
-    pageSize,
+    pageSize: data.pageSize,
+    totalItems: data.totalItems,
     totalPages,
     startIndex,
     endIndex,
