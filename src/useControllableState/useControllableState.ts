@@ -22,7 +22,10 @@ function noop() {}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useControllableState<T = any>(
   value: T | undefined,
-  setValue: React.Dispatch<React.SetStateAction<T>> | undefined,
+  setValue:
+    | React.Dispatch<React.SetStateAction<T>>
+    | React.Dispatch<T>
+    | undefined,
   initialState?: T | (() => T | undefined) | undefined
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
   const { current: wasControlled } = useRef(value !== undefined)
