@@ -1,14 +1,17 @@
 import { Checkbox } from '@committed/components'
 import { action } from '@storybook/addon-actions'
 import { Meta, Story } from '@storybook/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useControllableState } from '.'
 
 export interface UseControllableStateDocsProps<T> {
   /** The controlled value (of type T) or undefined for an uncontrolled value */
   value: T | undefined
   /** The dispatch handler for state changes or undefined for when an uncontrolled value, ignored if uncontrolled*/
-  setValue: React.Dispatch<React.SetStateAction<T>> | undefined
+  setValue:
+    | React.Dispatch<React.SetStateAction<T>>
+    | React.Dispatch<T>
+    | undefined
   /** The initial state value, or state initializer for when uncontrolled, ignored if controlled  */
   initialState?: T | (() => T | undefined) | undefined
 }
@@ -59,4 +62,45 @@ Controlled.parameters = {
         'This is a controlled example, clicking does not change the value but registers the click in the actions',
     },
   },
+}
+
+export const SetState = Template.bind({})
+SetState.args = {
+  value: true,
+  setValue: (value: boolean | ((current: boolean) => void)) =>
+    action('setState')(value),
+}
+SetState.parameters = {
+  docs: {
+    description: {
+      story:
+        'This is a controlled example, where both set and function set are supported',
+    },
+  },
+}
+
+export const SetValue = Template.bind({})
+SetValue.args = {
+  value: true,
+  setValue: (value: boolean) => action('setValue')(value),
+}
+SetValue.parameters = {
+  docs: {
+    description: {
+      story:
+        'This is a controlled example, where only direct value is supported - this is allow but may lead to errors if clients attempt to use the function style set.',
+    },
+  },
+}
+
+export const WrappedExample = () => {
+  const [state, setState] = useState(false)
+
+  return <Template value={state} setValue={setState} />
+}
+
+export const WrappedExampleNoFunction = () => {
+  const [state, setState] = useState(false)
+
+  return <Template value={state} setValue={(value) => setState(value)} />
 }
